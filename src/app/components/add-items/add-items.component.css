@@ -1,0 +1,24 @@
+
+textarea.form-control {
+    resize: vertical; /* Allows vertical resizing only */
+  }
+  
+  @media (max-width: 768px) {
+    textarea.form-control {
+      width: 100%;
+    }
+  }
+  @media (max-width: 576px) {
+    .form-control {
+      font-size: 14px;
+    }
+    
+    .btn {
+      width: 100%;
+    }
+  
+    textarea {
+      font-size: 14px;
+    }
+  }
+  
