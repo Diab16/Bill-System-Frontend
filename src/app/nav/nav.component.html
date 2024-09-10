@@ -1,0 +1,77 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(12, 12, 80);">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button
+        data-mdb-collapse-init
+        class="navbar-toggler"
+        type="button"
+        data-mdb-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Navbar brand -->
+        <a class="navbar-brand ms-2 mt-2 mt-lg-0" href="#">
+          <img
+            src="/logo.png"
+            height="45"
+            alt="MDB Logo"
+            loading="lazy"
+            style="border-radius: 30px;"
+          />
+          
+        </a>
+        <span class="text-light fw-bold fs-4 pb-1">
+            Pioneers
+        </span>
+      </div>
+      <!-- Collapsible wrapper -->
+  
+      <!-- Right elements -->
+      <div class="d-flex align-items-center">
+        <!-- Avatar -->
+        <span class="text-light">
+            Admin&commat;Pioneers.com
+        </span>
+        <div ngbDropdown class="dropdown me-3 ms-2">
+          <a
+            ngbDropdownToggle
+            class="dropdown-toggle d-flex align-items-center hidden-arrow text-light fs-5"
+            href="#"
+            id="navbarDropdownMenuAvatar"
+            role="button"
+            aria-expanded="false"
+          >
+            <img
+              src="https://as2.ftcdn.net/v2/jpg/02/48/78/23/500_F_248782375_WjBW5Bh0PSRQH9qflJ5wzsBJKVfX2OAP.jpg"
+              class="rounded-circle"
+              height="40px"
+              width="40px"
+              alt="Black and White Portrait of a Man"
+              loading="lazy"
+            />
+          </a>
+          <ul
+            ngbDropdownMenu
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuAvatar"
+          >
+            <li>
+              <a ngbDropdownItem class="dropdown-item" href="#">Logout</a>
+            </li>
+          </ul>
+        </div>
+        
+      </div>
+      <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->

@@ -1,0 +1,6 @@
+.sideLinks a{
+    color: white;
+}
+.sideLinks a:hover{
+    color: aqua;
+}
