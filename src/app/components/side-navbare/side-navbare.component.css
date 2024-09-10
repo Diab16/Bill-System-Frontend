@@ -1,0 +1,28 @@
+/* Ensure the sidenave is fixed and visible on all screen sizes */
+.sidenave {
+    top: 0;
+    left: 0;
+    width: 250px; 
+    height: 100vh; 
+    background-color: #0C0D51; 
+  }
+ 
+  
+  /* Adjust for smaller screens */
+  @media (max-width: 992px) {
+    .sidenave {
+      width: 200px; /* Adjust width as needed for smaller screens */
+    }
+    
+  
+  }
+  
+  /* Adjust for extra small screens */
+  @media (max-width: 768px) {
+    .sidenave {
+      width: 150px; /* Adjust width for very small screens */
+    }
+  
+ 
+  }
+  
