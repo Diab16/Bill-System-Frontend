@@ -13,7 +13,8 @@ import { RouterLink } from '@angular/router';
 export class AddItemsComponent {
   isLoading:boolean=false;
   companyList:any[] =["company2" , "componey2"]
-  typeList: string[] = ['Type 1', 'Type 2', 'Type 3']; // Example types
+  typeList: string[] = ['Type 1', 'Type 2', 'Type 3']; 
+  unitslist:string[] =["Killo " , "m" ,"Package"]
 
   AddItemsForm:FormGroup = new FormGroup({
     componeyName: new FormControl(null , [Validators.required]),
@@ -21,6 +22,7 @@ export class AddItemsComponent {
     itemName:new FormControl(null , [Validators.required]),
     sellingPrice:new FormControl(null , [ Validators.required , Validators.min(0)]),
     buyingPrice:new FormControl(null , [ Validators.required , Validators.min(0)] ),
+    unit:new FormControl(null,[Validators.required]),
     notes:new FormControl(null)
   },{validators:this.PriceValidation()});
  
