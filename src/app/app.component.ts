@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CompanyFormComponent } from './company-form/company-form.component';
-import { NavComponent } from "./nav/nav.component";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SideNavComponent } from "./side-nav/side-nav.component";
+import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
+import { NavbareComponent } from "./components/navbare/navbare.component";
+import { SideNavbareComponent } from "./components/side-navbare/side-navbare.component";
+import { MainComponent } from "./components/main/main.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CompanyFormComponent, NavComponent, NgbModule, SideNavComponent],
+  imports: [RouterOutlet, NavbareComponent, SideNavbareComponent, MainComponent ,RouterLink,RouterModule ,CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
