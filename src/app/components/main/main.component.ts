@@ -1,15 +1,12 @@
-import { InvoicesComponent } from './../invoices/invoices.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {  RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
-import { HomeComponent } from '../home/home.component';
-import { ManageComponent } from '../manage/manage.component';
-import { ReportsComponent } from '../reports/reports.component';
-import { CommonModule } from '@angular/common';
-
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterOutlet ,RouterLink,RouterLinkActive,RouterModule ],
+  imports: [RouterOutlet ,RouterLink,RouterLinkActive,RouterModule ,CommonModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })

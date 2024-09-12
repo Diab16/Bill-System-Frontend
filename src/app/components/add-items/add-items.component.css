@@ -1,8 +1,31 @@
 
 textarea.form-control {
-    resize: vertical; /* Allows vertical resizing only */
+    resize: vertical; 
   }
   
+  .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px; 
+    text-align: center;
+    transition: opacity 0.4s ease-in-out; 
+    opacity: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .alert.success {
+    background-color: #4CAF50; 
+    color: white; 
+  }
+  
+  .alert.error {
+    background-color: #f44336; 
+    color: white; 
+  }
+  
+
+  
+
   @media (max-width: 768px) {
     textarea.form-control {
       width: 100%;
