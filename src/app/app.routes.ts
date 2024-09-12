@@ -6,6 +6,7 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CompanyFormComponent } from './components/company-form/company-form.component';
 import { AddItemsComponent } from './components/add-items/add-items.component';
+import { TypeFormComponent } from './components/type-form/type-form.component';
 
 
 export const routes: Routes = [
@@ -15,11 +16,12 @@ export const routes: Routes = [
     {path: 'invoice',component:InvoicesComponent},
     {path: 'reports',component:ReportsComponent},
 
-    {path: 'manage/addCompany',component:CompanyFormComponent},
+    {path: 'manage/addCompany', component: CompanyFormComponent },
+    {path: 'manage/addType', component: TypeFormComponent},
     {path: 'AddItem', component: AddItemsComponent},
     {path: '**',component:NotFoundComponent}
-    
 
 
-    
+
+
 ];
