@@ -1,14 +1,4 @@
-.container {
-    padding: 1rem; 
-}
-
-@media (max-width: 576px) {
-    .container {
-        padding: 0.5rem; 
-    }
-
-    .img-fluid {
-        width: 100px; 
-        height: 100px;
-    }
+a:hover{
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }

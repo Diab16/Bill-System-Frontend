@@ -4,11 +4,12 @@ import { NavbareComponent } from "./components/navbare/navbare.component";
 import { SideNavbareComponent } from "./components/side-navbare/side-navbare.component";
 import { MainComponent } from "./components/main/main.component";
 import { CommonModule } from '@angular/common';
-import { AddItemsComponent } from './components/add-items/add-items.component'
+import { CompanyFormComponent } from './components/company-form/company-form.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbareComponent, SideNavbareComponent, MainComponent ,RouterLink,RouterModule ,CommonModule,AddItemsComponent ],
+  imports: [RouterOutlet, NavbareComponent, SideNavbareComponent, MainComponent ,RouterLink,RouterModule ,CommonModule,CompanyFormComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
