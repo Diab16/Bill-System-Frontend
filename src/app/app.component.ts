@@ -5,11 +5,13 @@ import { SideNavbareComponent } from "./components/side-navbare/side-navbare.com
 import { MainComponent } from "./components/main/main.component";
 import { CommonModule } from '@angular/common';
 import { CompanyFormComponent } from './components/company-form/company-form.component';
+import { UnitsComponent } from './components/units/units.component';
+import { ClientsComponent } from './components/clients/clients.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbareComponent, SideNavbareComponent, MainComponent ,RouterLink,RouterModule ,CommonModule,CompanyFormComponent],
+  imports: [RouterOutlet, NavbareComponent, SideNavbareComponent, MainComponent ,RouterLink,RouterModule ,CommonModule,CompanyFormComponent,UnitsComponent,ClientsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
