@@ -1,1 +1,111 @@
-<p>invoices works!</p>
+<div class="bg-light p-4 text-center m-5 border" style="border-radius: 30px;">
+    <div class="p-3">
+      <h2 class="text-center">Sales Invoice</h2>
+  
+      <!-- Bills Details Section -->
+      <form [formGroup]="billForm" (ngSubmit)="onSubmit()" class="form mt-5 mx-5">
+        <div class="mb-4">
+          <input 
+            type="date" 
+            id="billDate" 
+            formControlName="billDate" 
+            class="form-control shadow-sm mx-auto"
+            style="background-color: rgba(0,0,0,0.15);border-width: 0px; width: 70%;" 
+            placeholder="BILLS DATE"
+          />
+          <div *ngIf="billForm.get('billDate')?.invalid && billForm.get('billDate')?.touched" class="text-danger">
+            BILL DATE is Required
+          </div>
+        </div>
+  
+        <div class="mb-4">
+          <select 
+            id="clientName" 
+            formControlName="clientName" 
+            class="form-control shadow-sm mx-auto"
+            style="background-color: rgba(0,0,0,0.15);border-width: 0px; width: 70%;"
+          >
+            <option value="">Choose From Clients</option>
+            <option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</option>
+          </select>
+          <div *ngIf="billForm.get('clientName')?.invalid && billForm.get('clientName')?.touched" class="text-danger">
+            CLIENT NAME is Required
+          </div>
+        </div>
+  
+        <h4>Item Details</h4>
+        
+        <div class="mb-4">
+          <select 
+            id="itemName" 
+            formControlName="itemName" 
+            (change)="onItemSelect($event)" 
+            class="form-control shadow-sm mx-auto"
+            style="background-color: rgba(0,0,0,0.15);border-width: 0px; width: 70%;"
+          >
+            <option value="">Choose From Items</option>
+            <option *ngFor="let item of items" [value]="item.id">{{ item.name }}</option>
+          </select>
+          <div *ngIf="billForm.get('itemName')?.invalid && billForm.get('itemName')?.touched" class="text-danger">
+            ITEM NAME is Required
+          </div>
+        </div>
+  
+        <div class="mb-4">
+          <input 
+            type="number" 
+            id="sellingPrice" 
+            formControlName="sellingPrice" 
+            class="form-control shadow-sm mx-auto"
+            style="background-color: rgba(0,0,0,0.15);border-width: 0px; width: 70%;"
+            placeholder="SELLING PRICE"
+          />
+        </div>
+  
+        <div class="mb-4">
+          <input 
+            type="number" 
+            id="quantity" 
+            formControlName="quantity" 
+            class="form-control shadow-sm mx-auto"
+            style="background-color: rgba(0,0,0,0.15);border-width: 0px; width: 70%;" 
+            placeholder="QUANTITY"
+          />
+          <div *ngIf="billForm.get('quantity')?.hasError('required') && billForm.get('quantity')?.touched" class="text-danger">
+            Quantity is Required
+          </div>
+          <div *ngIf="billForm.get('quantity')?.hasError('min') && billForm.get('quantity')?.touched" class="text-danger">
+            Quantity Must be Greater than Zero
+          </div>
+        </div>
+  
+        <button type="button" class="btn btn-success shadow-sm" (click)="addItem()">Add</button>
+      </form>
+  
+      <table class="table table-bordered mt-4">
+        <thead>
+          <tr>
+            <th>Item Code</th>
+            <th>Item Name</th>
+            <th>Unit</th>
+            <th>Quantity</th>
+            <th>Selling Price</th>
+            <th>Discount</th>
+            <th>Total Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let addedItem of addedItems">
+            <td>{{ addedItem.code }}</td>
+            <td>{{ addedItem.name }}</td>
+            <td>{{ addedItem.unit }}</td>
+            <td>{{ addedItem.quantity }}</td>
+            <td>{{ addedItem.sellingPrice }}</td>
+            <td>{{ addedItem.discount }}</td>
+            <td>{{ addedItem.totalBalance }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
