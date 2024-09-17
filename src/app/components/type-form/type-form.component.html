@@ -1,0 +1,111 @@
+<div class="bg-light p-4 text-center m-5 border" style="border-radius: 30px">
+  <div class="p-3">
+    <p class="h2 text-center">Add Type</p>
+    <form
+      (submit)="addType($event)"
+      class="form mt-5 mx-5"
+      [formGroup]="TypeForm"
+    >
+      <!-- Company Name Dropdown -->
+      <div class="mb-4 align-items-start">
+        <select
+          formControlName="companyName"
+          class="form-control shadow-sm mx-auto"
+          style="
+            background-color: rgba(0, 0, 0, 0.15);
+            border-width: 0px;
+            width: 70%;
+          "
+        >
+          <option value="" disabled>Select Company</option>
+          <option *ngFor="let company of companyArray" [value]="company.name">
+            {{ company.name }}
+          </option>
+        </select>
+
+        <!-- Validation for Company Name -->
+        <span
+          *ngIf="getCompanyName.touched || clicked"
+          class="text-danger py-1"
+        >
+          <span *ngIf="getCompanyName.hasError('required')"
+            >Company Name is Required!</span
+          >
+        </span>
+      </div>
+
+      <!-- Type Name Input -->
+      <div class="mb-4 align-items-start">
+        <input
+          name="name"
+          formControlName="name"
+          type="text"
+          placeholder="Type Name"
+          class="form-control shadow-sm mx-auto"
+          style="
+            background-color: rgba(0, 0, 0, 0.15);
+            border-width: 0px;
+            width: 70%;
+          "
+        />
+
+        <!-- Validation for Type Name -->
+        <span *ngIf="getName.touched || clicked" class="text-danger py-1">
+          <span *ngIf="getName.hasError('required')"
+            >Type Name is Required!</span
+          >
+          <span *ngIf="!unique && getName.value !== ''"
+            >Type Name Exists! Must be Unique!</span
+          >
+        </span>
+      </div>
+
+      <!-- Notes Text Area -->
+      <textarea
+        name="notes"
+        formControlName="notes"
+        placeholder="Notes"
+        class="form-control shadow-sm mb-5 mx-auto"
+        style="
+          background-color: rgba(0, 0, 0, 0.15);
+          border-width: 0px;
+          height: 130px;
+          width: 70%;
+        "
+      ></textarea>
+
+      <!-- Submit and Cancel Buttons -->
+      <div class="row mx-5">
+        <div class="col"></div>
+        <a
+          class="btn btn-danger col me-3 py-2"
+          style="border-width: 0px; border-radius: 20px"
+          routerLink="/manage"
+          >Cancel</a
+        >
+
+        <input
+          type="submit"
+          value="Add"
+          class="btn text-light col ms-3"
+          style="
+            border-radius: 20px;
+            background-color: rgb(12, 12, 80);
+            border-width: 0px;
+          "
+        />
+        <div class="col"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Success Popup Message -->
+<div
+  [ngClass]="{ 'popup-message': true, show: successMessage }"
+  class="popup-message"
+>
+  <span class="checkmark">&#10003;</span>
+  <!-- Checkmark for success -->
+  <p>{{ successMessage }}</p>
+</div>
