@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { CompanyService } from '../../Services/company.service';
 
 @Component({
   selector: 'app-add-items',
@@ -10,9 +11,9 @@ import { RouterLink } from '@angular/router';
   templateUrl: './add-items.component.html',
   styleUrl: './add-items.component.css'
 })
-export class AddItemsComponent {
+export class AddItemsComponent implements OnInit{
   isLoading:boolean=false;
-  companyList:any[] =["company2" , "componey2"]
+  companyList:any[] =[];
   typeList: string[] = ['Type 1', 'Type 2', 'Type 3']; 
   unitslist:string[] =["Killo " , "m" ,"Package"]
 
@@ -41,6 +42,19 @@ export class AddItemsComponent {
       return null
    }
 
+  }
+
+  constructor(private companyService:CompanyService) {}
+  ngOnInit(): void {
+    this.companyService.GetAllCompanies().subscribe({
+      next:(response)=>{
+        this.companyList = response;
+        console.log(response);
+        
+      }
+    });
+    console.log(this.companyList);
+    
   }
 
   handelAdditem(AddItemsForm:FormGroup)
