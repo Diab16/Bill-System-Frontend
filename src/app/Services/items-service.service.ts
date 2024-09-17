@@ -29,4 +29,20 @@ export class ItemsServiceService {
  }
 
 
+ getById(id:number):Observable<any>
+ {
+     return this.httpclint.get<Iitems>(`${this.apiurl}/GetById?id=${id}`)
+ }
+
+editItem(item:Iitems)
+{
+     return this.httpclint.put<Iitems>(`${this.apiurl}` , item)
+}
+
+deleteItem(id:number)
+{
+     return this.httpclint.delete(`${this.apiurl}?id=${id}`)
+}
+
+
 }

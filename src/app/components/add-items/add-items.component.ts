@@ -2,7 +2,7 @@ import { Iitems } from './../../Interfaces/Iitems';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { ItemsServiceService } from '../../Services/items-service.service';
 import { IFormdata } from '../../Interfaces/Iformdata';
 import { HttpClient } from '@angular/common/http';
@@ -52,6 +52,9 @@ export class AddItemsComponent implements OnInit {
         console.error('Error fetching form data:', error);
       }
     });
+
+   
+
   }
 
  
@@ -117,7 +120,7 @@ export class AddItemsComponent implements OnInit {
       buyingPrice: null,
       unitId:'',
       availableAmount:null,
-      notes: ''
+      notes:''
     });
 
   }
