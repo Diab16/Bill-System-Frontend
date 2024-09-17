@@ -1,8 +1,17 @@
 <div class="container rounded-5 mx-auto my-5 p-4">
-    <div class="row text-center align-items-center">
-        <!-- Item 1 -->
-        <div class="col-6 col-md-4 mb-4">
-
+  <div class="row text-center align-items-center">
+    <!-- Item 1 -->
+    <div class="col-6 col-md-4 mb-4">
+      <a
+        class="d-flex flex-column align-items-center text-decoration-none text-dark rounded-5 p-3"
+        routerLink="/manage/addCompany"
+      >
+        <img
+          src="assets/Screenshot 2024-09-03 170600.png"
+          class="img-fluid mb-2 rounded-circle"
+          alt="Add Company"
+          style="width: 150px; height: 150px"
+        />
             <a class="d-flex flex-column align-items-center text-decoration-none text-dark rounded-5 p-3" routerLink="/manage/addCompany">
                 <img src="assets/Screenshot 2024-09-03 170600.png" class="img-fluid mb-2 rounded-circle" alt="Add Company" style="width: 150px; height: 150px;">
 
@@ -15,9 +24,11 @@
                 <h6>Add Items</h6>
             </a>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 mb-4">
-            <a class="d-flex flex-column align-items-center text-decoration-none text-dark rounded-5 p-3">
-                <img src="assets/Screenshot 2024-09-03 173606.png" class="img-fluid object-fit-cover mb-2" alt="Add Units" style="width: 150px; height: 150px;">
+
+        <!-- Item 3 -->
+        <div class="col-6 col-md-4 mb-4">
+            <a routerLink="/units" routerLinkActive="router-link-active" class="d-flex flex-column align-items-center text-decoration-none text-dark rounded-5 p-3">
+                <img src="assets/Screenshot 2024-09-03 173606.png" class="img-fluid mb-2" alt="Add Units" style="width: 150px; height: 150px;">
                 <h6>Add Units</h6>
             </a>
         </div>
@@ -27,9 +38,10 @@
                 <h6>Add Types</h6>
             </a>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 mb-4">
-            <a class="d-flex flex-column align-items-center text-decoration-none text-dark rounded-5 p-3">
-                <img src="assets/Screenshot 2024-09-03 175928.png" class="img-fluid object-fit-cover mb-2 rounded-circle" alt="Add Clients" style="width: 150px; height: 150px;">
+        <!-- Item 5 -->
+        <div class="col-6 col-md-4 mb-4">
+            <a routerLink="/clients" routerLinkActive="router-link-active" class="d-flex flex-column align-items-center text-decoration-none text-dark rounded-5 p-3">
+                <img src="assets/Screenshot 2024-09-03 175928.png" class="img-fluid mb-2" alt="Add Clients" style="width: 150px; height: 150px;">
                 <h6>Add Clients</h6>
             </a>
         </div>
@@ -40,4 +52,5 @@
             </a>
         </div>
     </div>
+  </div>
 </div>
