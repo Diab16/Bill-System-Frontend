@@ -9,6 +9,11 @@ import { AddItemsComponent } from './components/add-items/add-items.component';
 import { ItemsComponent } from './components/items/items.component';
 import { EditItemsComponent } from './components/edit-items/edit-items.component';
 
+import { TypeFormComponent } from './components/type-form/type-form.component';
+
+import { UnitsComponent } from './components/units/units.component';
+import { ClientsComponent } from './components/clients/clients.component';
+
 
 export const routes: Routes = [
     {path: '', redirectTo:'Home',pathMatch:'full'},
@@ -17,12 +22,16 @@ export const routes: Routes = [
     {path: 'invoice',component:InvoicesComponent},
     {path: 'reports',component:ReportsComponent},
     {path: 'manage/Items',component:ItemsComponent},
+    {path: 'manage/addCompany', component: CompanyFormComponent },
+    {path: 'manage/addType', component: TypeFormComponent},
+    {path: 'units',component:UnitsComponent},
+    {path: 'clients',component:ClientsComponent},
     {path: 'manage/addCompany',component:CompanyFormComponent},
     {path: 'manage/Edit/:id',component:EditItemsComponent},
     {path: 'AddItem', component: AddItemsComponent},
     {path: '**',component:NotFoundComponent}
-    
 
 
-    
+
+
 ];

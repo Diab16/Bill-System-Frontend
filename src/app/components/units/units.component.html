@@ -1,0 +1,48 @@
+<div class="bigbox container d-flex justify-content-center align-items-center">
+    <div class="card w-50 p-5 shadow-lg bg-light rounded-5 shadow mx-auto my-5 p-4" style="border-radius: 30px;">
+        <h2 class="card-title d-flex justify-content-center mb-4">Add Unit</h2>
+        <form [formGroup]="unitForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4 align-items-start">
+                <div class="input-group d-flex flex-column justify-content-start align-items-center">
+                    <input 
+                        type="text" 
+                        placeholder="Unit Name" 
+                        class="form-control shadow-sm mx-auto"
+                        formControlName="unitName"
+                        style="background-color: rgba(0,0,0,0.15);border-width: 0px; width: 70%;"
+                    >
+                    <div *ngIf="unitName?.touched || formSubmitted" class="error-message">
+                        <!-- Display 'required' error -->
+                        <div *ngIf="unitName?.errors?.['required']" class="text-danger">
+                            Unit Name is required.
+                        </div>
+                        <!-- Display 'unitNameExists' error -->
+                        <div *ngIf="unitName?.errors?.['unitNameExists']" class="text-danger">
+                            Unit Name already exists.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <textarea  
+                placeholder="Notes" 
+                class="form-control shadow-sm mb-5 mx-auto"
+                formControlName="notes"
+                style="background-color: rgba(0,0,0,0.15);border-width: 0px; height: 130px;width: 70%;"
+            ></textarea>
+
+            <div class="row mx-5">
+                <div class="col"></div>
+
+                <a id="cancel" (click)="onCancel()" class="btn col me-3 py-2" style="border-radius: 20px; background-color: #851214;">
+                    Cancel
+                </a>
+
+                <button type="submit" id="save" class="btn col ms-3" style="border-radius: 20px; background-color: rgb(12,12,80);border-width: 0px;">
+                    Add
+                </button>
+                <div class="col"></div>
+            </div>
+        </form>
+    </div>
+</div>
