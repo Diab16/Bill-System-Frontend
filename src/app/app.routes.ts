@@ -7,6 +7,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CompanyFormComponent } from './components/company-form/company-form.component';
 import { AddItemsComponent } from './components/add-items/add-items.component';
 import { TypeFormComponent } from './components/type-form/type-form.component';
+import { TypeComponent } from './components/type/type.component';
+import { TypeDetailsComponent } from './components/type-details/type-details.component';
 
 
 export const routes: Routes = [
@@ -19,6 +21,9 @@ export const routes: Routes = [
     {path: 'manage/addCompany', component: CompanyFormComponent },
     {path: 'manage/addType', component: TypeFormComponent},
     {path: 'AddItem', component: AddItemsComponent},
+    { path: 'Type', component: TypeComponent },
+    { path: 'Type/:id', component: TypeDetailsComponent },
+    { path: 'manage/editType/:id', component: TypeFormComponent },
     {path: '**',component:NotFoundComponent}
 
 
