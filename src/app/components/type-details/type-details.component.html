@@ -1,21 +1,31 @@
-<div class="product-details bg-dark text-center text-light py-5">
-  <div class="container">
-    <h2 class="mb-4">Type Details</h2>
-    <div class="product-info bg-light text-dark p-4 rounded shadow-lg">
-      <p class="lead fs-5 mb-4">
-        Company Name: <span class="fw-bold">{{ Type?.companyName }}</span>
-      </p>
-      <p class="lead fs-3 mb-2">
-        Type Name: <span class="fw-bold">{{ Type?.typeName }}</span>
-      </p>
-
-      <p class="lead fs-4 mb-2">
-        Type Notes: <span class="fw-bold">{{ Type?.typeNotes || "N/A" }}</span>
-      </p>
-
-      <button (click)="backToProducts()" class="btn btn-primary btn-lg">
-        Back To Products
-      </button>
+<div class="bg-light p-4 text-center m-5 border" style="border-radius: 30px;">
+    <div class="container card-container">
+        <h2 class="card-title text-muted mb-5"><i class="fas fa-tag"></i> Type Details</h2>
+        <div class="card shadow" style="border-radius: 20px; border-width: 0px;">
+            <div class="card-head text-light" style="border-radius: 20px; background-color: rgb(12, 12, 80);">
+                <p class="h2 p-3">{{ Type?.companyName }}</p>
+            </div>
+            <div class="card-body row p-5">
+                <div class="col card text-center" style="border-radius: 20px; border-width: 0px;">
+                    <div class="card-head bg-success bg-opacity-100 text-light mb-1 mx-4" style="border-radius: 10px;">
+                        <p class="h4 p-4"> Type Id </p>
+                    </div>
+                    <div class="idCard alert alert-success card-body mx-4">
+                        <p class="rounded-pill fs-1">{{ typeId }}</p>
+                    </div>
+                </div>
+                <div class="col card text-center p-0" style="border-radius: 20px; border-width: 0px;">
+                    <div class="card-head m-0 bg-success bg-opacity-100 text-light mb-1 mx-4" style="border-radius: 10px;">
+                        <p class="h4 p-4"> Notes </p>
+                    </div>
+                    <div class="card-body alert alert-success idCard mx-4">
+                        <p class="notesBreakWord fs-4">{{ Type?.typeNotes || "N/A" }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-outline-danger btn-back mt-3 fs-5 rounded-pill w-50" (click)="backToProducts()">
+            <i class="fas fa-arrow-left"></i> Back to Products
+        </a>
     </div>
-  </div>
 </div>
