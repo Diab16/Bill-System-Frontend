@@ -32,8 +32,8 @@ export const routes: Routes = [
     {path: 'manage/addCompany',component:CompanyFormComponent},
     {path: 'manage/Edit/:id',component:EditItemsComponent},
     {path: 'AddItem', component: AddItemsComponent},
-    { path: 'Type', component: TypeComponent },
-    { path: 'Type/:id', component: TypeDetailsComponent },
+    { path: 'manage/Type', component: TypeComponent },
+    { path: 'manage/Type/:id', component: TypeDetailsComponent },
     { path: 'manage/editType/:id', component: TypeFormComponent },
     {path: '**',component:NotFoundComponent}
 
