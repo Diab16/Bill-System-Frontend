@@ -1,0 +1,117 @@
+/* General Table Styling */
+table {
+  width: 100%;
+}
+
+th {
+  background-color: rgb(12, 12, 80);
+  font-size: larger;
+  color: white;
+  border-width: 0px;
+  border-bottom: 0px;
+  padding-left: 30px;
+}
+
+td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 30px;
+}
+
+/* Back Button Styling */
+.backButton {
+  display: flex;
+  justify-content: start;
+  max-width: 210px;
+  white-space: nowrap;
+}
+
+#btn2 {
+  display: none;
+  box-shadow: 10px 10px 8px #888888;
+  width: 210px;
+  animation-name: colors;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+/* Type Name and Notes Field Styling */
+.type-name {
+  --max-lines: 1;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--max-lines);
+  text-overflow: ellipsis;
+  max-width: 200px;
+  /* Adjust width as needed */
+}
+
+.notes {
+  --max-lines: 2;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--max-lines);
+  text-overflow: ellipsis;
+  max-width: 250px;
+  /* Adjust width as needed */
+}
+
+.names span {
+  border-radius: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  width: 100%;
+}
+
+/* Add Button Styling */
+#add {
+  border-color: rgb(12, 12, 80);
+  color: rgb(12, 12, 80);
+}
+
+#add:hover {
+  cursor: pointer;
+  color: white;
+  background: rgb(12, 12, 80);
+}
+
+/* Action Icon Styling */
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  /* Space between icons */
+  justify-content: center;
+  /* Center the icons if needed */
+}
+
+.actions .btn {
+  padding: 0.5rem;
+  /* Padding around icons */
+  font-size: 1.2rem;
+  /* Adjust icon size */
+}
+
+@keyframes colors {
+  0% {
+    opacity: 30%;
+    width: 30%;
+    box-shadow: 10px 10px 8px #888888;
+  }
+
+  30% {
+    opacity: 65%;
+    width: 65%;
+    box-shadow: 10px 10px 8px #888888;
+  }
+
+  100% {
+    width: 100%;
+    opacity: 100%;
+    box-shadow: 10px 10px 8px #888888;
+  }
+}
