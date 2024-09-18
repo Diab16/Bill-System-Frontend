@@ -15,34 +15,30 @@ import { CommonModule } from '@angular/common';
 })
 export class TypeFormComponent implements OnInit {
   typeId: number = 0;
-  TypeForm = new FormGroup({
-    companyName: new FormControl('', [Validators.required]),
-    name: new FormControl('', [Validators.required]),
-    notes: new FormControl('')
-  });
-
-  get getCompanyName() {
-    return this.TypeForm.controls['companyName'];
-  }
-
-  get getName() {
-    return this.TypeForm.controls['name'];
-  }
-
-  get getNotes() {
-    return this.TypeForm.controls['notes'];
-  }
-
+  TypeForm: FormGroup;
   clicked: boolean = false;
   TypeArray: IType[] = [];
   companyArray: any[] = []; // Array to store the list of companies
   unique: boolean = true;
   successMessage: string | null = null; // For storing success message
 
-  constructor(private typeService: TypeService, private companyService: CompanyService, public router: Router, public activatedRoute: ActivatedRoute) { }
+  constructor(
+    private typeService: TypeService,
+    private companyService: CompanyService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    // Initialize the form group with default values
+    this.TypeForm = new FormGroup({
+      companyName: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      notes: new FormControl('')
+    });
+  }
 
   ngOnInit(): void {
-    this.typeId = Number(this.activatedRoute.snapshot.params['id']);
+    // Initialize typeId from the route parameters
+    this.typeId = Number(this.activatedRoute.snapshot.params['id']) || 0;
 
     if (this.typeId) {
       // Edit mode
@@ -60,6 +56,12 @@ export class TypeFormComponent implements OnInit {
       });
     }
 
+    // Load all types and companies
+    this.loadTypes();
+    this.loadCompanies();
+  }
+
+  loadTypes() {
     this.typeService.GetAllTypes().subscribe({
       next: (response) => {
         this.TypeArray = response;
@@ -68,8 +70,9 @@ export class TypeFormComponent implements OnInit {
         console.error('Error fetching types:', err);
       }
     });
+  }
 
-    // Load companies for the dropdown
+  loadCompanies() {
     this.companyService.GetAllCompanies().subscribe({
       next: (response) => {
         this.companyArray = response; // Populate companyArray with the list of companies
@@ -80,71 +83,82 @@ export class TypeFormComponent implements OnInit {
     });
   }
 
-  addType(e: any) {
-  e.preventDefault(); // Prevent default form submission behavior
+  get getCompanyName() {
+    return this.TypeForm.controls['companyName'];
+  }
 
-  if (isNaN(this.typeId) || this.typeId == null) {
+  get getName() {
+    return this.TypeForm.controls['name'];
+  }
+
+  get getNotes() {
+    return this.TypeForm.controls['notes'];
+  }
+
+  addType(e: Event) {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    if (isNaN(this.typeId) || this.typeId == null) {
       this.typeId = 0; // Set to 0 if it wasn't properly initialized
-  }
-
-  this.clicked = true; // Set state to indicate that a submission attempt has been made
-  this.unique = true; // Assume the type is unique initially
-
- // Check if the type name is unique only if adding a new type
-  if (this.typeId === 0) {
-      this.unique = !this.TypeArray.some(type =>
-      this.getName.value?.toUpperCase() === type.typeName.toUpperCase()
-    );
-  }
-
-  // Log the form validity and type uniqueness
-  console.log('Form Status:', this.TypeForm.status);
-  console.log('Type Name Unique:', this.unique);
-
-  // If the form is valid and the type name is unique
-  if (this.TypeForm.valid && this.unique) {
-    const typeData: IType = {
-      typeId: this.typeId, // Use the updated or existing typeId
-      typeName: this.getName.value || '', // Ensure value is a string
-      typeNotes: this.getNotes.value || '', // Ensure value is a string
-      companyName: this.getCompanyName.value || '' // Ensure value is a string
-    };
-
-    // Log the data being sent
-    console.log('Type Data:', typeData);
-
-    if (this.typeId) {
-      // Edit type
-      this.typeService.EditType(typeData, this.typeId).subscribe({
-        next: () => {
-          this.successMessage = 'Type updated successfully!';
-          setTimeout(() => {
-            this.router.navigate(['/Type']);
-          }, 2000); // Redirect after 2 seconds
-        },
-        error: (err) => {
-          console.error('Error updating type:', err);
-        }
-      });
-    } else {
-      // Add new type
-      this.typeService.AddType(typeData).subscribe({
-        next: () => {
-          this.successMessage = 'Type added successfully!';
-          setTimeout(() => {
-            this.router.navigate(['/Type']);
-          }, 2000); // Redirect after 2 seconds
-        },
-        error: (err) => {
-          console.error('Error adding type:', err);
-        }
-      });
     }
-  } else {
-    // Log validation errors
-    console.log('Form errors:', this.TypeForm.errors);
-    console.log('Type Name Not Unique:', !this.unique);
-  }
-}
 
+    this.clicked = true; // Set state to indicate that a submission attempt has been made
+    this.unique = true; // Assume the type is unique initially
+
+    // Check if the type name is unique only if adding a new type
+    if (this.typeId === 0) {
+      this.unique = !this.TypeArray.some(type =>
+        this.getName.value?.toUpperCase() === type.typeName.toUpperCase()
+      );
+    }
+
+    // Log the form validity and type uniqueness
+    console.log('Form Status:', this.TypeForm.status);
+    console.log('Type Name Unique:', this.unique);
+
+    // If the form is valid and the type name is unique
+    if (this.TypeForm.valid && this.unique) {
+      const typeData: IType = {
+        typeId: this.typeId, // Use the updated or existing typeId
+        typeName: this.getName.value || '', // Ensure value is a string
+        typeNotes: this.getNotes.value || '', // Ensure value is a string
+        companyName: this.getCompanyName.value || '' // Ensure value is a string
+      };
+
+      // Log the data being sent
+      console.log('Type Data:', typeData);
+
+      if (this.typeId) {
+        // Edit type
+        this.typeService.EditType(typeData, this.typeId).subscribe({
+          next: () => {
+            this.successMessage = 'Type updated successfully!';
+            setTimeout(() => {
+              this.router.navigate(['/manage/Type']);
+            }, 2000); // Redirect after 2 seconds
+          },
+          error: (err) => {
+            console.error('Error updating type:', err);
+          }
+        });
+      } else {
+        // Add new type
+        this.typeService.AddType(typeData).subscribe({
+          next: () => {
+            this.successMessage = 'Type added successfully!';
+            setTimeout(() => {
+              this.router.navigate(['/Type']);
+            }, 2000); // Redirect after 2 seconds
+          },
+          error: (err) => {
+            console.error('Error adding type:', err);
+          }
+        });
+      }
+    } else {
+      // Log validation errors
+      console.log('Form errors:', this.TypeForm.errors);
+      console.log('Type Name Not Unique:', !this.unique);
+    }
+  }
 }
