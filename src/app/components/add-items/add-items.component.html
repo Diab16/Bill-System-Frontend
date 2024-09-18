@@ -1,73 +1,84 @@
-<section class="container ">
-  <div class="bg-light rounded-5 p-5 mt-3 m-auto shadow w-75 ">
-    <h3 class="p-2">Add Item</h3>
+<section class="  mt-4  ">
+  <div class="bg-light rounded-5 p-5 m-auto shadow w-75 ">
+    <h2 class="p-2" ><i class="fa-solid fa-folder-plus"style="color: #0C0D51;"></i> Add Item</h2>
+    <div *ngIf="Message" class="alert" [ngClass]="{'success': Message.includes('Successfully'), 'error': Message.includes('Error')}">
+      {{ Message }}
+    </div>
     <form (ngSubmit)="handelAdditem(AddItemsForm)" [formGroup]="AddItemsForm">
       
       <div class="form-group position-relative">
-        <select formControlName="componeyName" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle">
-          <option value="" selected>Select Company Name</option>
-          <option *ngFor="let company of companyList" >{{ company }}</option>
+        <select formControlName="companyId" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle">
+          <option  value="" selected>Select Company Name</option>
+          <option *ngFor="let company of companyList" [value]="company.id">{{ company.name }}</option>
         </select>
         <i class="fa fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
       </div>
-      <div *ngIf="AddItemsForm.get('componeyName')?.errors && AddItemsForm.get('componeyName')?.touched" class="alert alert-danger">
-        <p *ngIf="AddItemsForm.get('componeyName')?.hasError('required')">Company Name is required</p>
+      <div *ngIf="AddItemsForm.get('companyId')?.errors && AddItemsForm.get('companyId')?.touched" class="text-danger">
+        <p *ngIf="AddItemsForm.get('companyId')?.hasError('required')">Company Name is required</p>
       </div>
 
       <div class="form-group position-relative">
-        <select formControlName="typeName" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle">
+        <select formControlName="typeId" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle">
           <option value="" selected>Select Type Name</option>
-          <option *ngFor="let type of typeList" >{{ type }}</option>
+          <option *ngFor="let type of typeList" [value]="type.id" >{{ type.name }}</option>
         </select>
         <i class="fa fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
       </div>
-      <div *ngIf="AddItemsForm.get('typeName')?.errors && AddItemsForm.get('typeName')?.touched" class="alert alert-danger">
-        <p *ngIf="AddItemsForm.get('typeName')?.hasError('required')">Type Name is required</p>
+      <div *ngIf="AddItemsForm.get('typeId')?.errors && AddItemsForm.get('typeId')?.touched" class="text-danger">
+        <p *ngIf="AddItemsForm.get('typeId')?.hasError('required')">Type Name is required</p>
       </div>
 
-      <input formControlName="itemName" type="text" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Item Name">
-      <div *ngIf="AddItemsForm.get('itemName')?.errors && AddItemsForm.get('itemName')?.touched" class="alert alert-danger">
-        <p *ngIf="AddItemsForm.get('itemName')?.hasError('required')">Item Name is required</p>
+      <input formControlName="name" type="text" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Item Name">
+      <div *ngIf="AddItemsForm.get('name')?.errors && AddItemsForm.get('name')?.touched" class="text-danger">
+        <p *ngIf="AddItemsForm.get('name')?.hasError('required')">Item Name is required</p>
+        <p *ngIf="AddItemsForm.get('name')?.hasError('uniqueItemName')">Item Name already Exist </p>
+      </div>
+      
+
+      <input formControlName="availableAmount" type="number" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Amount Avaliable">
+      <div *ngIf="AddItemsForm.get('availableAmount')?.errors && AddItemsForm.get('availableAmount')?.touched" class="text-danger">
+        <p *ngIf="AddItemsForm.get('availableAmount')?.hasError('required')">Amount Avaliable is required</p>
+        <p *ngIf="AddItemsForm.get('availableAmount')?.hasError('min')">Amount Avaliable must be greater than or equal to zero</p>
+
       </div>
 
       <div class="form-group position-relative">
-        <select formControlName="unit" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle">
-          <option value="" selected>Select  Unit</option>
-          <option *ngFor="let type of unitslist" >{{ type }}</option>
+        <select formControlName="unitId" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle">
+          <option value="" disabled selected>Select  Unit</option>
+          <option *ngFor="let unit of unitsList" [value]="unit.id" >{{ unit.name }}</option>
         </select>
         <i class="fa fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
       </div>
-      <div *ngIf="AddItemsForm.get('typeName')?.errors && AddItemsForm.get('typeName')?.touched" class="alert alert-danger">
-        <p *ngIf="AddItemsForm.get('typeName')?.hasError('required')">Type Name is required</p>
+      <div *ngIf="AddItemsForm.get('unitId')?.errors && AddItemsForm.get('unitId')?.touched" class=" text-danger">
+        <p *ngIf="AddItemsForm.get('unitId')?.hasError('required')">unit  is required</p>
       </div>
 
       <input formControlName="sellingPrice" type="number" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Selling Price">
-      <div *ngIf="AddItemsForm.get('sellingPrice')?.errors && AddItemsForm.get('sellingPrice')?.touched" class="alert alert-danger">
+      <div *ngIf="AddItemsForm.get('sellingPrice')?.errors && AddItemsForm.get('sellingPrice')?.touched" class="text-danger">
         <p *ngIf="AddItemsForm.get('sellingPrice')?.hasError('required')">Selling Price is required</p>
         <p *ngIf="AddItemsForm.get('sellingPrice')?.hasError('min')">Price must be greater than or equal to zero</p>
       </div>
 
       <input formControlName="buyingPrice" type="number" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Buying Price">
-      <div *ngIf="AddItemsForm.get('buyingPrice')?.errors && AddItemsForm.get('buyingPrice')?.touched" class="alert alert-danger">
+      <div *ngIf="AddItemsForm.get('buyingPrice')?.errors && AddItemsForm.get('buyingPrice')?.touched" class="text-danger">
         <p *ngIf="AddItemsForm.get('buyingPrice')?.hasError('required')">Buying Price is required</p>
         <p *ngIf="AddItemsForm.get('buyingPrice')?.hasError('min')">Price must be greater than or equal to zero</p>
       </div>
 
       
-      <div *ngIf="AddItemsForm.errors?.['buyingPriceGreaterOrEqual'] && (AddItemsForm.get('sellingPrice')?.touched || AddItemsForm.get('buyingPrice')?.touched)" class="alert alert-danger">
+      <div *ngIf="AddItemsForm.errors?.['buyingPriceGreaterOrEqual'] && (AddItemsForm.get('sellingPrice')?.touched || AddItemsForm.get('buyingPrice')?.touched)" class="text-danger">
         <p>Buying Price must be less than Selling Price</p>
       </div>
            
       <div>
-        <textarea formControlName="notes" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Notes"></textarea>
-
+        <textarea formControlName="notes"  class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Notes"></textarea>
       </div>
       <button [disabled]="AddItemsForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
         <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
         <span *ngIf="!isLoading">Save</span>
       </button>
 
-      <button   routerLink="/manage"  type="button" class="btn  rounded-4 text-light mx-2" style="background-color: #851214">Cancel</button>
+      <button   routerLink="/manage/Items"  type="button" class="btn  rounded-4 text-light mx-2" style="background-color: #851214">Cancel</button>
     </form>
   </div>
 </section>

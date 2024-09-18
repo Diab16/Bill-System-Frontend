@@ -1,1 +1,201 @@
-<p>invoices works!</p>
+<section class="container">
+  <div class="bg-light rounded-5 p-5 my-3 m-auto shadow w-75 ">
+    <h3 class="p-2"><i class="fa-solid fa-file-invoice-dollar"></i> Bill Details</h3>
+    <hr style="border-style: dashed; margin-top: 0px; margin-bottom: 20px;">
+    <form id="AddInvoiceDetails" (ngSubmit)="handelAdditem(AddInvoiceDetailsForm)" [formGroup]="AddInvoiceDetailsForm">
+
+      <div class="p-0 mb-2">
+          <label class="pb-1">Bill Date</label>
+          <input 
+          type="date" 
+          id="billDate" 
+          formControlName="billDate" 
+          class="form-control shadow-sm rounded-3 p-2 bg-dark-subtle"
+          placeholder="BILLS DATE"
+        />      
+      </div>
+      <div *ngIf="AddInvoiceDetailsForm.get('billDate')?.errors && AddInvoiceDetailsForm.get('billDate')?.touched" class="alert alert-danger mt-1">
+        <span *ngIf="AddInvoiceDetailsForm.get('billDate')?.hasError('required')">Bill Date is required</span>
+      </div>
+
+      <div class="p-0 mb-2">
+          <label class="pb-1">Bill Number</label>
+          <input formControlName="billNumber"  readonly="true" type="number" class="form-control rounded-3 p-2 mb-2 bg-dark-subtle" placeholder="Bill Number">
+      </div>
+
+      <div class="mb-4">
+        <label class="pb-1">Client Name</label>
+        <div class="form-group position-relative">     
+          <select 
+          id="clientName" 
+          formControlName="clientName" 
+          class="form-control shadow-sm rounded-3 p-2 bg-dark-subtle">
+            <option value="" selected disabled>Select Client Name</option>
+            <option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</option>
+        </select>  
+        <i class="fa fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>    
+      </div>
+      <div *ngIf="AddInvoiceDetailsForm.get('clientName')?.errors && AddInvoiceDetailsForm.get('clientName')?.touched" class="alert alert-danger mt-1">
+        <span *ngIf="AddInvoiceDetailsForm.get('clientName')?.hasError('required')">Client Name is required</span>
+      </div>
+      </div>
+      
+    </form>
+
+
+    <h3 class="p-2 mt-5"><i class="fa-solid fa-circle-info"></i> Item Details</h3>
+    <hr style="border-style: dashed; margin-top: 0px; margin-bottom: 20px;">
+    <form (ngSubmit)="onSubmit()" [formGroup]="AddItemDetailsForm">
+      <div class="mb-2">
+        <label class="pb-1">Item Name</label>
+        <div class="form-group position-relative ">
+          <select 
+            id="itemName" 
+            formControlName="itemName" 
+            (change)="onItemSelect($event)" 
+            class="form-control shadow-sm rounded-3 p-2 bg-dark-subtle">
+              <option value="" selected disabled>Select An Item</option>
+              <option *ngFor="let item of items" [value]="item.id">{{ item.name }}</option>
+          </select>
+          <i class="fa fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
+      </div>
+      <div *ngIf="AddItemDetailsForm.get('itemName')?.errors && AddItemDetailsForm.get('itemName')?.touched" class="alert alert-danger mt-1">
+        <span *ngIf="AddItemDetailsForm.get('itemName')?.hasError('required')">Item Name is required</span>
+      </div>
+      </div>
+
+      <div class="mb-2">
+        <label class="pb-1">Selling Price <span class="fw-bold">($)</span></label>
+        <input
+          (input)="calculateTotalValue()" 
+          type="number" 
+          id="sellingPrice" 
+          formControlName="sellingPrice" 
+          class="form-control shadow-sm rounded-3 p-2 bg-dark-subtle"
+          placeholder="SELLING PRICE"/>
+        <div *ngIf="AddItemDetailsForm.get('sellingPrice')?.errors && AddItemDetailsForm.get('sellingPrice')?.touched" class="alert alert-danger mt-1">
+          <span *ngIf="AddItemDetailsForm.get('sellingPrice')?.hasError('required')">Selling Price is required</span>
+          <span *ngIf="AddItemDetailsForm.get('sellingPrice')?.hasError('min')">Selling Price must be greater than or equal to zero</span>
+        </div>
+      </div>
+  
+        <div class="mb-2">
+          <label class="pb-1">Quantity</label>
+          <input 
+            (input)="calculateTotalValue()"
+            type="number" 
+            id="quantity" 
+            formControlName="quantity" 
+            class="form-control shadow-sm rounded-3 p-2 bg-dark-subtle"
+            placeholder="QUANTITY"
+          />
+          <div *ngIf="AddItemDetailsForm.get('quantity')?.errors && AddItemDetailsForm.get('quantity')?.touched" class="alert alert-danger mt-1">
+            <span *ngIf="AddItemDetailsForm.get('quantity')?.hasError('required')">Quantity is required</span>
+            <span *ngIf="AddItemDetailsForm.get('quantity')?.hasError('min')">Quantity must be greater than or equal to 1</span>
+          </div>
+        </div>
+
+        <div class="p-0 mb-2">
+          <label class="pb-1">Total Value <span class="fw-bold">($)</span></label>
+          <input formControlName="totalValue"  readonly="true" type="number" class="form-control rounded-3 p-2 mb-2 bg-dark-subtle" placeholder="TOTAL VALUE">
+        </div>
+  
+        <div style="display: flex;justify-content: center;">
+          <button [disabled]="AddItemDetailsForm.invalid" type="button" class="btn btn-success shadow-sm w-25 rounded-pill" (click)="addItem()">Add Item</button>
+        </div>
+      </form>
+  
+      <table class="table table-bordered mt-4">
+        <thead>
+          <tr>
+            <th>Item Code</th>
+            <th>Item Name</th>
+            <th>Unit</th>
+            <th>Quantity</th>
+            <th>Selling Price</th>
+            <th>Total Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let addedItem of addedItems">
+            <td>{{ addedItem.code }}</td>
+            <td>{{ addedItem.name }}</td>
+            <td>{{ addedItem.unit }}</td>
+            <td>{{ addedItem.quantity }}</td>
+            <td>{{ addedItem.sellingPrice }}</td>
+            <td>{{ addedItem.totalBalance }}</td>
+            <td>
+              <a class="btn btn-danger p-0 m-0 px-1" (click)="deleteRow(addedItem.code)">
+                <i class="fa-solid fa-xmark m-0 p-0" style="width: 15px;height: 15px;"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+  </div>
+</section>
+
+  
+<section class="container ">
+    <div class="bg-light rounded-5 p-5 my-3 m-auto shadow w-75 ">
+      <h3 class="p-2"><i class="fa-solid fa-coins"></i> Other Details</h3>
+      <hr style="border-style: dashed; margin-top: 0px; margin-bottom: 20px;">
+      <form id="AddInvoiceDetails" (ngSubmit)="handelAdditem(AddInvoiceDetailsForm)" [formGroup]="AddInvoiceDetailsForm">
+
+        <div class="p-0 m-0">
+            <label class="pb-1">Bill Total <span class="fw-bold">($)</span></label>
+            <input (ngModelChange)="onBillTotalOrDiscountChange()"  formControlName="billsTotal" readonly  type="number"  class="form-control rounded-3 p-2 mb-2 bg-dark-subtle" placeholder="Bills Total">
+        </div>
+        
+  
+        <div class="mb-2">
+            <label class="pb-1">Percentage Discount <span class="fw-bold">(%)</span></label>
+            <input (input)="onBillTotalOrDiscountChange()" formControlName="percentageDiscount" type="number" class="form-control rounded-3 p-2 bg-dark-subtle" placeholder="percentage Discount (%)">
+            <div *ngIf="AddInvoiceDetailsForm.get('percentageDiscount')?.errors && AddInvoiceDetailsForm.get('percentageDiscount')?.touched" class="alert alert-danger mt-1">
+              <span *ngIf="AddInvoiceDetailsForm.get('percentageDiscount')?.hasError('required')">Percentage Discount is required</span>
+              <span *ngIf="AddInvoiceDetailsForm.get('percentageDiscount')?.hasError('min')">Discount must be greater than or equal to zero</span>
+              <span *ngIf="AddInvoiceDetailsForm.get('percentageDiscount')?.hasError('max')">Discount must be Less than or equal to 100</span>
+            </div>
+        </div>
+
+        <div class="p-0 mb-2">
+            <label class="pb-1">Value Discount <span class="fw-bold">($)</span></label>
+            <input formControlName="valueDiscount"  readonly="true" type="number" class="form-control rounded-3 p-2 mb-2 bg-dark-subtle" placeholder="Value Discount">
+        </div>
+        <div class="p-0 mb-2">
+            <label class="pb-1">The Net <span class="fw-bold">($)</span></label>
+            <input formControlName="net" readonly="true" type="number" class="form-control rounded-3 p-2 mb-2 bg-dark-subtle" placeholder="The Net">
+        </div>
+        
+        <div class="mb-2">
+            <label class="pb-1">Paid Up <span class="fw-bold">($)</span></label>
+            <input (input)="onPaidUpChange()" formControlName="paidUp" type="number" class="form-control rounded-3 p-2 bg-dark-subtle" placeholder="Paid Up">
+            <div *ngIf="AddInvoiceDetailsForm.get('paidUp')?.errors && AddInvoiceDetailsForm.get('paidUp')?.touched" class="alert alert-danger mt-1">
+              <span *ngIf="AddInvoiceDetailsForm.get('paidUp')?.hasError('required')">Paid Up is required</span>
+            </div>
+            <div *ngIf="AddInvoiceDetailsForm.errors?.['paidPriceGreaterThanOrEqualNet'] && (AddInvoiceDetailsForm.get('net')?.touched || AddInvoiceDetailsForm.get('paidUp')?.touched)" class="alert alert-danger mt-1">
+                <span>Paid Up Must be Greater than The Net</span>
+            </div>
+        </div>
+        <div class="p-0 mb-2">
+            <label class="pb-1">The Rest <span class="fw-bold">($)</span></label>
+            <input formControlName="rest" readonly="true" type="number" class="form-control rounded-3 p-2 mb-2 bg-dark-subtle" placeholder="The Rest">
+        </div>
+       
+      </form>
+
+      <hr style="border-style: dashed;" class="my-4">
+
+      <div>
+        <button [disabled]="AddInvoiceDetailsForm.invalid" class="btn text-light mx-2 rounded-pill" style="background-color: #0C0D51;width: 15%;" form="AddInvoiceDetails" type="submit" >
+            <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+            <span *ngIf="!isLoading">Save</span>
+          </button>
+    
+          <button   routerLink="/manage"  type="button" class="btn  rounded-pill text-light mx-2" style="background-color: #851214;width: 15%;">Cancel</button>    
+      </div>
+    </div>
+  </section>
+  
