@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { NavbareComponent } from "./components/navbare/navbare.component";
 import { SideNavbareComponent } from "./components/side-navbare/side-navbare.component";

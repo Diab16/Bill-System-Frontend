@@ -1,11 +1,25 @@
 export interface Iitems {
-   name: any
-   sellingPrice: any,
-    buyingPrice: any,
-    availableAmount: any,
-    companyId: any,
-    typeId: any,
-    unitId: any
+    id: number;
+    name: string;
+    sellingPrice: number;
+    buyingPrice: number;
+    availableAmount: number;
+    companyId: number;
+    company: {
+      id: number;
+      name: string;
+    };
+    unit: {
+      id: number;
+      name: string;
+    };
+    type: {
+      id: number;
+      name: string;
+    };
+    typeId: number;
+    unitId: number;
+    notes: string;
 
 
 }

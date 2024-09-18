@@ -1,6 +1,6 @@
 <section class="  mt-4  ">
   <div class="bg-light rounded-5 p-5 m-auto shadow w-75 ">
-    <h3 class="p-2">Add Item</h3>
+    <h2 class="p-2" ><i class="fa-solid fa-folder-plus"style="color: #0C0D51;"></i> Add Item</h2>
     <div *ngIf="Message" class="alert" [ngClass]="{'success': Message.includes('Successfully'), 'error': Message.includes('Error')}">
       {{ Message }}
     </div>
@@ -71,14 +71,14 @@
       </div>
            
       <div>
-        <textarea formControlName="notes" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Notes"></textarea>
+        <textarea formControlName="notes"  class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Notes"></textarea>
       </div>
       <button [disabled]="AddItemsForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
         <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
         <span *ngIf="!isLoading">Save</span>
       </button>
 
-      <button   routerLink="/manage"  type="button" class="btn  rounded-4 text-light mx-2" style="background-color: #851214">Cancel</button>
+      <button   routerLink="/manage/Items"  type="button" class="btn  rounded-4 text-light mx-2" style="background-color: #851214">Cancel</button>
     </form>
   </div>
 </section>
