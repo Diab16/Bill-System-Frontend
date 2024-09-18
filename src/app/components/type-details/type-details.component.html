@@ -1,0 +1,21 @@
+<div class="product-details bg-dark text-center text-light py-5">
+  <div class="container">
+    <h2 class="mb-4">Type Details</h2>
+    <div class="product-info bg-light text-dark p-4 rounded shadow-lg">
+      <p class="lead fs-5 mb-4">
+        Company Name: <span class="fw-bold">{{ Type?.companyName }}</span>
+      </p>
+      <p class="lead fs-3 mb-2">
+        Type Name: <span class="fw-bold">{{ Type?.typeName }}</span>
+      </p>
+
+      <p class="lead fs-4 mb-2">
+        Type Notes: <span class="fw-bold">{{ Type?.typeNotes || "N/A" }}</span>
+      </p>
+
+      <button (click)="backToProducts()" class="btn btn-primary btn-lg">
+        Back To Products
+      </button>
+    </div>
+  </div>
+</div>
