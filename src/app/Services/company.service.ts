@@ -15,7 +15,16 @@ export class CompanyService {
   GetAllCompanies():Observable<ICompany[]>{
     return this.http.get<ICompany[]>(this.baseUrl);
   }
+  GetCompanyById(companyId:any):Observable<ICompany>{
+    return this.http.get<ICompany>(`${this.baseUrl}/${companyId}`);
+  }
   AddCompany(company:ICompany){
     return this.http.post(this.baseUrl,company);
+  }
+  EditCompany(company: ICompany , companyId:any){
+    return this.http.put(`${this.baseUrl}/${companyId}`,company)
+  }
+  DeleteCompany(companyId:any){
+    return this.http.delete(`${this.baseUrl}/${companyId}`);
   }
 }
