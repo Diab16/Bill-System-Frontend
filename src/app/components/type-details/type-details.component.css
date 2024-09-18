@@ -1,0 +1,29 @@
+.idCard {
+  border-radius: 10px;
+  border-width: 0px;
+  border-style: dashed;
+  border-color: rgb(128, 128, 128);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notesBreakWord {
+  text-overflow: wrap;
+  overflow-wrap: break-word;
+  inline-size: 300px;
+}
+
+.card-title {
+  font-size: 2rem;
+}
+
+.card-head {
+  background-color: rgb(12, 12, 80);
+  color: #fff;
+  border-radius: 20px;
+}
+
+.card-body {
+  background-color: #f8f9fa;
+}
