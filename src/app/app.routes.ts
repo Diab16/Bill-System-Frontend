@@ -15,6 +15,8 @@ import { CompanyDetailsComponent } from './components/Company/company-details/co
 import { TypeFormComponent } from './components/type-form/type-form.component';
 import { TypeComponent } from './components/type/type.component';
 import { TypeDetailsComponent } from './components/type-details/type-details.component';
+import { UnitsComponent } from './components/units/units.component';
+import { ClientsComponent } from './components/clients/clients.component';
 
 
 export const routes: Routes = [
