@@ -14,8 +14,16 @@ export class TypeService {
   GetAllTypes(): Observable<IType[]> {
     return this.http.get<IType[]>(this.baseUrl);
   }
-
   AddType(type: IType): Observable<any> {
     return this.http.post(this.baseUrl, type);
+  }
+  GetTypeById(typeId: any) {
+  return this.http.get<IType>(`${this.baseUrl}/${typeId}`);
+}
+  EditType(type: IType, typeId: any) {
+    return this.http.put(`${this.baseUrl}/${typeId}`, type);
+  }
+  DeleteType(typeId: any) {
+    return this.http.delete(`${this.baseUrl}/${typeId}`);
   }
 }
