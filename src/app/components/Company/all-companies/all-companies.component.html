@@ -7,7 +7,7 @@
             <a id="btn2" (mouseleave)="hoverOut()" class=" btn btn-outline-danger btn-back mt-3 fs-5 rounded-pill" routerLink="/manage"><i class="fas fa-arrow-left"></i> Back to Manage</a>
         </div>
         <div class=" mb-4" style="display: flex; align-items: center; justify-content: center;">
-            <img src="https://www.visualcapitalist.com/wp-content/uploads/2022/10/OC_MostValuableBrands_2022_Shareable_ValuableBrands2022-1000x600.jpg" 
+            <img src="https://www.visualcapitalist.com/wp-content/uploads/2022/10/OC_MostValuableBrands_2022_Shareable_ValuableBrands2022-1000x600.jpg"
             alt=""
             width="130px"
             height="100px"
@@ -33,7 +33,7 @@
                                     <span class="badge alert alert-success py-2 ">
                                         {{company.name}}
                                     </span>
-                                    
+
                                 </td>
                                 <td  >
                                     <p class="notes">
@@ -43,36 +43,36 @@
                                 </td>
                                 <td>
                                     <span class="btn btn-outline-success rounded-pill px-4 py-0 fs-3 mx-2" [routerLink]="['/manage/allCompanies/view',company.id]">
-                                        <i class="fa-solid fa-eye"></i>                            
+                                        <i class="fa-solid fa-eye"></i>
                                     </span>
                                     <span class="btn rounded-pill btn-outline-warning px-4 py-0 fs-3" [routerLink]="['/manage/allCompanies/addCompany',company.id]">
-                                        <i class="fa-solid fa-pen-to-square"></i>                            
+                                        <i class="fa-solid fa-pen-to-square"></i>
                                     </span>
                                     <span class="btn rounded-pill btn-outline-danger px-4 py-0 fs-3 mx-2" (click)="deleteCompany(company.id)">
-                                        <i class="fa-solid fa-trash-can"></i>                            
+                                        <i class="fa-solid fa-trash-can"></i>
                                     </span>
                                 </td>
                               </tr>
                         }
-                        
-                      
-                     
+
+
+
                     </tbody>
 
 
 
-                    
+
                 </table>
                 <div>
                     <a id="add" style="border-radius: 20px;" class="btn btn-outline-primary w-100" [routerLink]="['/manage/allCompanies/addCompany',0]">
                         <i class="fs-5 fa-solid fa-plus"></i>
                         <span class="fs-5"> Add New Company</span>
                     </a>
-                    
+
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 
 

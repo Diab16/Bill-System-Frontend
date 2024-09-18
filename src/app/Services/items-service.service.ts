@@ -9,15 +9,15 @@ import { IFormdata } from '../Interfaces/Iformdata';
 export class ItemsServiceService {
 
   constructor(public httpclint:HttpClient) { }
-  apiurl = "https://localhost:44301/api/Items"
-// apiurl =  "https://localhost:7200/api/Items"  change the Api Url 
-  
-  
+  //apiurl = "https://localhost:44301/api/Items"
+ apiurl =  "https://localhost:7200/api/Items"  
+
+
  getAllItems():Observable<Iitems[]>
  {
       return this.httpclint.get<Iitems[]>(`${this.apiurl}/AllItems ` )
  }
- 
+
  getFormData():Observable<IFormdata>
  {
       return this.httpclint.get<IFormdata>(`${this.apiurl}/FormData` )
