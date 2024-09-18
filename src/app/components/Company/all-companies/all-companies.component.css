@@ -1,0 +1,78 @@
+table{
+    width: 100%;
+}
+th{
+    background-color: rgb(12, 12, 80);
+    font-size: larger;
+    color: white;
+    border-width: 0px;
+    border-bottom: 0px;
+    padding-left: 30px;
+}
+td{    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 30px;
+
+}
+.backButton{
+    display: flex;
+    justify-content: start;
+    max-width: 210px;
+    white-space: nowrap;
+}
+#btn2{
+    display: none;
+    box-shadow: 10px 10px 8px #888888;
+    width: 210px;
+    animation-name: colors;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+.notes{
+    --max-lines: 2;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--max-lines);
+    text-overflow:ellipsis;
+    max-width: 250px;
+}
+.names span{
+    /* background-color: rgba(12, 12, 80, 0.93); */
+    border-radius: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    width: 100%;
+}
+#add{
+    border-color: rgb(12, 12, 80);
+
+    color:rgb(12, 12, 80);
+}
+
+#add:hover{
+    cursor: pointer;
+    color:white; 
+    background:rgb(12, 12, 80);
+}
+@keyframes colors{
+    0%{
+        opacity: 30%;
+        width: 30%;
+        box-shadow: 10px 10px 8px #888888;
+    }
+    30%{
+        opacity: 65%;
+        width: 65%;
+        box-shadow: 10px 10px 8px #888888;
+    }
+    100%{
+        width: 100%;
+        opacity: 100%;
+        box-shadow: 10px 10px 8px #888888;    
+    }
+}
