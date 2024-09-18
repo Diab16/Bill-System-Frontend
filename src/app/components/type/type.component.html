@@ -1,0 +1,54 @@
+<div class="mt-5 container">
+  <h1 class="text-muted text-center">Our Types</h1>
+  <div class="row mt-4">
+    <!-- Add Button -->
+    <div class="mb-3">
+      <a [routerLink]="['/manage/addType']" class="btn btn-primary"
+        >Add New Type</a
+      >
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Company Name</th>
+          <th scope="col">Type Name</th>
+          <th scope="col">Notes</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let type of Types">
+          <th scope="row">{{ type.typeId }}</th>
+          <td>{{ type.companyName }}</td>
+          <td>{{ type.typeName }}</td>
+          <td>{{ type.typeNotes || "N/A" }}</td>
+          <td>
+            <!-- View Icon -->
+            <i
+              [routerLink]="['/Type', type.typeId]"
+              class="mx-1 fs-5 text-warning bi bi-eye-fill"
+              title="View Type"
+            ></i>
+
+            <!-- Edit Icon -->
+            <i
+              [routerLink]="['/manage/editType', type.typeId]"
+              class="mx-1 fs-5 text-info bi bi-pencil-square"
+              title="Edit Type"
+            ></i>
+
+            <!-- Delete Icon -->
+            <i
+              (click)="deleteHandler(type.typeId)"
+              class="mx-1 fs-5 text-danger bi bi-trash3-fill"
+              title="Delete Type"
+              style="cursor: pointer"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
