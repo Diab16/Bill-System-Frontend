@@ -24,10 +24,10 @@ export const routes: Routes = [
     {path: 'manage/allCompanies/addCompany/:id',component:CompanyFormComponent},
     {path: 'manage/allCompanies/view/:id',component:CompanyDetailsComponent},
     {path: 'manage/addType', component: TypeFormComponent},
-    {path: 'units',component:UnitsComponent},
-    {path: 'clients',component:ClientsComponent},
+    {path: 'manage/addUnit',component:UnitsComponent},
+    {path: 'manage/addClient',component:ClientsComponent},
 
-    {path: 'AddItem', component: AddItemsComponent},
+    {path: 'manage/addItem', component: AddItemsComponent},
     {path: 'AddInvoice', component: InvoicesComponent},
 
     {path: '**',component:NotFoundComponent}
