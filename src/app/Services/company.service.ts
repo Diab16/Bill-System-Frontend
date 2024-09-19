@@ -7,9 +7,9 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root'
 })
 export class CompanyService {
-  // baseUrl:string="https://localhost:7200/api/company"
-    baseUrl:string="https://localhost:44301/api/Company"
-  constructor(private http : HttpClient) 
+   baseUrl:string="https://localhost:7200/api/company"
+    //baseUrl:string="https://localhost:44301/api/Company"
+  constructor(private http : HttpClient)
   {}
 
   GetAllCompanies():Observable<ICompany[]>{
