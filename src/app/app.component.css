@@ -1,1 +1,13 @@
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+.d-flex {
+    display: flex;
+    min-height: 100vh; /* Ensures the flex container takes up the full screen height */
+}
+
+app-main {
+    flex-grow: 1; 
+}
