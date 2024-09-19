@@ -81,5 +81,14 @@
         <button   routerLink="/manage/Items"  type="button" class="btn  rounded-4 text-light mx-2" style="background-color: #851214">Cancel</button>
       </form>
     </div>
+      <!-- Success Popup Message -->
+<div
+[ngClass]="{ 'popup-message': true, show: successMessage }"
+class="popup-message"
+>
+<span class="checkmark">&#10003;</span>
+<!-- Checkmark for success -->
+<p>{{ successMessage }}</p>
+</div>
   </section>
   

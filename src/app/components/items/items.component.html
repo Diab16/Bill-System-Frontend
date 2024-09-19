@@ -1,9 +1,17 @@
-<section class="container bg-light shadow p-5 rounded-5 mt-4" style="border-radius: 15px;">
+<section  class="container  bg-light shadow p-5 rounded-5 mt-4" style="border-radius: 15px;">
+  <div class="mb-4" >
+    <div class="m-0 p-0 backButton">
+      <a id="btn1" (mouseenter)="hoverIn()" class=" btn btn-outline-primary btn-back mt-3 fs-5 rounded-pill" routerLink="/manage"><i class="fas fa-arrow-left"></i></a>
+  </div>
+  <div class="m-0 p-0 backButton">
+      <a id="btn2" (mouseleave)="hoverOut()" class=" btn btn-outline-primary btn-back mt-3 fs-5 rounded-pill" routerLink="/manage"><i class="fas fa-arrow-left"></i> Back to Manage</a>
+  </div>
+  </div>
   <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
     <h2 class="font-monospace fw-bold text-uppercase text-dark mb-3 mb-md-0">
       <i class="fa-solid fa-box" style="color: #0C0D51;"></i> All Items
     </h2>
-    
+   
     <div class="d-flex align-items-center flex-wrap">
       <form class="me-md-3 mb-3 mb-md-0">
         <input 
@@ -21,41 +29,49 @@
     </div>
   </div>
 
-  <div class="table-responsive">
+  <div class="table-responsive  p-5">
     <table class="table table-striped text-center align-middle" style="border-radius: 20px; overflow: hidden; background-color: #0C0D51;">
       <thead>
         <tr>
           <th scope="col">Name</th>
-          <th scope="col">Buying Price</th>
           <th scope="col">Selling Price</th>
           <th scope="col">Available Amount</th>
           <th scope="col">Company</th>
           <th scope="col">Type</th>
           <th scope="col">Unit</th>
-          <th scope="col">Notes</th>
+          <!-- <th scope="col">Notes</th> -->
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of itemms | searchPipe:searchterm" class="align-middle" style="transition: background-color;">
-          <td>{{ item.name }}</td>
-          <td>{{ item.buyingPrice | currency }}</td>
+          <td>
+            <span class="badge alert alert-success py-2 ">
+              {{ item.name }}
+          </span>
+           </td>
           <td class="text-danger">{{ item.sellingPrice | currency }}</td>
           <td>{{ item.availableAmount }}</td>
           <td>{{ item.company.name }}</td>
           <td>{{ item.type.name }}</td>
           <td>{{ item.unit.name }}</td>
-          <td>{{ item.notes }}</td>
+          <!-- <td>{{ item.notes }}</td> -->
           <td>
+            <button [routerLink]="['/manage/view', item.id]" class="btn btn-sm  me-3 btn-outline-success shadow-sm" style="border-radius: 29px;">
+              <i class="fa fa-eye"></i>
+            </button>
+            <button [routerLink]="['/manage/Edit', item.id]" class="btn btn-sm  me-3 btn-outline-warning shadow-sm" style="border-radius: 29px;">
+              <i class="fa fa-edit"></i>
+            </button>
             <button (click)="Delete(item.id)" class="btn btn-sm btn-outline-danger me-3 shadow-sm" style="border-radius: 29px;">
               <i class="fa fa-trash"></i>
             </button>
-            <button [routerLink]="['/manage/Edit', item.id]" class="btn btn-sm btn-outline-primary shadow-sm" style="border-radius: 29px;">
-              <i class="fa fa-edit"></i>
-            </button>
+        
+           
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+
 </section>

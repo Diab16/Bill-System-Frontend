@@ -17,6 +17,8 @@ import { TypeComponent } from './components/type/type.component';
 import { TypeDetailsComponent } from './components/type-details/type-details.component';
 import { UnitsComponent } from './components/units/units.component';
 import { ClientsComponent } from './components/clients/clients.component';
+import { ItemsDetailsComponent } from './components/items-details/items-details.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 export const routes: Routes = [
@@ -31,7 +33,17 @@ export const routes: Routes = [
     {path: 'clients',component:ClientsComponent},
     {path: 'manage/addCompany',component:CompanyFormComponent},
     {path: 'manage/Edit/:id',component:EditItemsComponent},
+    {path: 'manage/view/:id',component:ItemsDetailsComponent},
     {path: 'AddItem', component: AddItemsComponent},
+    {path: 'manage/allCompanies', component: AllCompaniesComponent},
+    {path: 'manage/allCompanies/addCompany/:id',component:CompanyFormComponent},
+    {path: 'manage/allCompanies/view/:id',component:CompanyDetailsComponent},
+    {path: 'manage/addType', component: TypeFormComponent},
+    {path: 'manage/addUnit',component:UnitsComponent},
+    {path: 'manage/addClient',component:ClientsComponent},
+    {path: 'manage/addItem', component: AddItemsComponent},
+    {path: 'AddInvoice', component: InvoicesComponent},
+    {path: 'Login', component:
     { path: 'manage/Type', component: TypeComponent },
     { path: 'manage/Type/:id', component: TypeDetailsComponent },
     { path: 'manage/editType/:id', component: TypeFormComponent },

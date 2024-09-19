@@ -2,7 +2,7 @@ import { Iitems } from './../../Interfaces/Iitems';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { ItemsServiceService } from '../../Services/items-service.service';
 import { IFormdata } from '../../Interfaces/Iformdata';
 import { HttpClient } from '@angular/common/http';
@@ -23,8 +23,9 @@ export class AddItemsComponent implements OnInit {
   companyList: { id: number; name: string }[] = []; 
   typeList: { id: number; name: string }[] = []; 
   unitsList: { id: number; name: string }[] = []; 
+  successMessage: string | null = null; // For storing success message
 
-  constructor( private service:ItemsServiceService ,private HttpClien:HttpClient){}
+  constructor( private service:ItemsServiceService ,private HttpClien:HttpClient , public router:Router){}
   AddItemsForm:FormGroup = new FormGroup({
     companyId: new FormControl("" , [Validators.required]),
     typeId:new FormControl('' , [Validators.required,]),
@@ -105,7 +106,11 @@ export class AddItemsComponent implements OnInit {
       next:(res)=>
       {
          console.log(res)
-        this.showMessage("Item Added Successfully ")
+         this.successMessage = 'Item added successfully!'; // Set success message
+         setTimeout(() => {
+           this.successMessage = null; // Clear message after 3 seconds
+           this.router.navigate(['/manage/Items']); // Navigate to the manage route
+         }, 1500);
       } , error: (error) => {
         console.error('Error fetching form data:', error);
         this.showMessage("Error Adding Item !!!");
