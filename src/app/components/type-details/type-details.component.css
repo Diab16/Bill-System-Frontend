@@ -1,3 +1,34 @@
+.table th {
+  background-color: #0C0D51;
+  color: #FFFFFF;
+}
+
+#btn2 {
+  display: none;
+  box-shadow: 10px 10px 8px #888888;
+  width: 210px;
+  animation-name: colors;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.backButton {
+  display: flex;
+  justify-content: start;
+  max-width: 210px;
+  white-space: nowrap;
+}
+
+span {
+  border-radius: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  width: 100%;
+}
+
 .idCard {
   border-radius: 10px;
   border-width: 0px;
@@ -16,6 +47,7 @@
 
 .card-title {
   font-size: 2rem;
+  color: #0C0D51;
 }
 
 .card-head {
