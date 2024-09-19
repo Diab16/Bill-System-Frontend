@@ -25,6 +25,7 @@ export class EditItemsComponent  implements OnInit{
   typeList: { id: number; name: string }[] = []; 
   unitsList: { id: number; name: string }[] = []; 
   EditItemsForm: FormGroup = new FormGroup({});
+  successMessage: string | null = null; // For storing success message
 
 
   constructor(private service:ItemsServiceService , public route:ActivatedRoute  , public router:Router){}
@@ -129,7 +130,12 @@ export class EditItemsComponent  implements OnInit{
           next: (res) => {
             console.log(res);
             this.Message = 'Item Updated Successfully';
-            this.router.navigate(['/manage/Items']); // Redirect to items page
+            this.successMessage = 'Item Edited successfully!'; // Set success message
+            setTimeout(() => {
+              this.successMessage = null; // Clear message after 3 seconds
+              this.router.navigate(['/manage/Items']); // Redirect to items page // Navigate to the manage route
+            }, 1500);
+           
 
           },
           error: (error) => {

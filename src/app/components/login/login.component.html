@@ -1,1 +1,56 @@
-<p>login works!</p>
+<div class="container-fluid  font-monospace md-flex align-items-center justify-content-center mt-5">
+    <div class="row shadow-lg rounded-5   p-5 overflow-hidden" style=" background-color: #0C0D51;">
+        
+        <!-- Left Side - Welcome Text -->
+        <div class="col-md-6 bg-light rounded-start-2  d-flex flex-column justify-content-center align-items-center p-5" style="background-color: #f2f4f5;">
+            <img src="/assets/pioneers_Logo.png" alt="Logo" class="img-fluid mb-4" style="width: 80px;">
+            <h3 class="fw-bold">Welcome Back!</h3>
+            <p class="text-muted">Login to access your account</p>
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="col-md-6 bg-white p-5  rounded-end-2">
+            <h2 class="text-center mb-4">Login</h2>
+            
+            <div *ngIf="ApiError" class="alert alert-danger text-center">
+                {{ApiError}}
+            </div>
+
+            <form (ngSubmit)="handeLogin(loginForm)" [formGroup]="loginForm">
+                <!-- Email Input -->
+                <div class="form-floating mb-3">
+                    <input formControlName="email" type="email" class="form-control bg-light" id="emailInput" placeholder="Email">
+                    <label for="emailInput">Email</label>
+                    <div *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched" class="text-danger mt-1">
+                        <p *ngIf="loginForm.get('email')?.getError('required')">Email is required</p>
+                        <p *ngIf="loginForm.get('email')?.getError('email')">Invalid Email</p>
+                    </div>
+                </div>
+
+                <!-- Password Input -->
+                <div class="form-floating mb-3">
+                    <input formControlName="password" type="password" class="form-control bg-light" id="passwordInput" placeholder="Password">
+                    <label for="passwordInput">Password</label>
+                    <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched" class="text-danger mt-1">
+                        <p *ngIf="loginForm.get('password')?.getError('required')">Password is required</p>
+                        <p *ngIf="loginForm.get('password')?.getError('pattern')">
+                            Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number with no spaces.
+                        </p>
+                    </div>
+                </div>
+                <!-- Forgot Password & Signup Links -->
+                <div class="">
+                    <a href="#" class="text-primary">Forgot Password?</a>
+                    
+                </div>
+                  <!-- Submit Button -->
+                  <div class=" text-center m-3">
+                    <button [disabled]="loginForm.invalid" class="btn text-light w-25 rounded-5 " style=" background-color: #0C0D51;" type="submit">
+                        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                        <span *ngIf="!isLoading">Login</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
