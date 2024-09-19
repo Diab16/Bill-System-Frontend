@@ -1,4 +1,49 @@
-/* Style the popup message like an alert */
+.form-control {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-width: 0px;
+  border-radius: 5px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-control::placeholder {
+  color: #6c757d;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  text-align: center;
+  transition: opacity 0.4s ease-in-out;
+  opacity: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.alert.success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.alert.error {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn {
+  border-radius: 20px;
+}
+
+.btn-danger {
+  background-color: #851214;
+}
+
+.btn-primary {
+  background-color: #0C0D51;
+}
+
 .popup-message {
   position: absolute;
   top: 20px;
@@ -7,45 +52,35 @@
   background-color: #34C759;
   color: white;
   padding: 8px 40px;
-  /* Decreased padding for less height and increased width */
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   font-size: 1.2rem;
-  /* Font size adjusted to fit the new dimensions */
   text-align: center;
   width: auto;
   max-width: 95%;
-  /* Increased width for better visibility */
   line-height: 1.3;
-  /* Adjusted line height for better text fit */
   border: none;
   box-sizing: border-box;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
 
-/* Style the checkmark */
 .popup-message .checkmark {
   font-size: 2.5rem;
-  /* Kept the checkmark size the same */
   font-weight: bold;
   color: #ffffff;
   margin: 0 auto;
   display: block;
 }
 
-/* Style the text */
 .popup-message p {
   font-size: 1rem;
-  /* Font size for the text */
   margin-top: 5px;
-  /* Reduced margin to minimize height */
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
 
-/* Show the popup message and text */
 .popup-message.show {
   opacity: 1;
 }

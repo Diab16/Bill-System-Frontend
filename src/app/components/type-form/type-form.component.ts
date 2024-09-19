@@ -147,7 +147,7 @@ export class TypeFormComponent implements OnInit {
           next: () => {
             this.successMessage = 'Type added successfully!';
             setTimeout(() => {
-              this.router.navigate(['/Type']);
+              this.router.navigate(['/manage/Type']);
             }, 2000); // Redirect after 2 seconds
           },
           error: (err) => {
