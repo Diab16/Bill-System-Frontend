@@ -1,9 +1,9 @@
-<div class="bg-light p-4 text-center m-5 border" style="border-radius: 30px">
+<div class="bg-light p-4 text-center m-5 border" style="border-radius: 30px;">
   <div class="p-3">
     <!-- Form Title -->
     <p
       class="h2 alert text-center text-light"
-      style="background-color: rgba(12, 12, 80, 0.9); border-radius: 20px"
+      style="background-color: rgba(12, 12, 80, 0.9); border-radius: 20px;"
     >
       {{ typeId === 0 ? "Add Type" : "Edit Type" }}
     </p>
@@ -15,92 +15,63 @@
       [formGroup]="TypeForm"
     >
       <!-- Company Name Dropdown -->
-      <div class="mb-4 align-items-start">
+      <div class="form-group position-relative mb-4">
         <select
           formControlName="companyName"
-          class="form-control shadow-sm mx-auto"
-          style="
-            background-color: rgba(0, 0, 0, 0.15);
-            border-width: 0px;
-            width: 70%;
-          "
+          class="form-control rounded-3 p-2 mb-4 bg-dark-subtle"
         >
           <option value="" disabled>Select Company</option>
           <option *ngFor="let company of companyArray" [value]="company.name">
             {{ company.name }}
           </option>
         </select>
-
+        <i class="fa fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
         <!-- Validation for Company Name -->
-        <span
-          *ngIf="getCompanyName.touched || clicked"
-          class="text-danger py-1"
-        >
-          <span *ngIf="getCompanyName.hasError('required')"
-            >Company Name is Required!</span
-          >
-        </span>
+        <div *ngIf="getCompanyName.touched || clicked" class="text-danger">
+          <p *ngIf="getCompanyName.hasError('required')">Company Name is Required!</p>
+        </div>
       </div>
 
       <!-- Type Name Input -->
-      <div class="mb-4 align-items-start">
+      <div class="form-group position-relative mb-4">
         <input
           name="name"
           formControlName="name"
           type="text"
           placeholder="Type Name"
-          class="form-control shadow-sm mx-auto"
-          style="
-            background-color: rgba(0, 0, 0, 0.15);
-            border-width: 0px;
-            width: 70%;
-          "
+          class="form-control rounded-3 p-2 mb-4 bg-dark-subtle"
         />
-
         <!-- Validation for Type Name -->
-        <span *ngIf="getName.touched || clicked" class="text-danger py-1">
-          <span *ngIf="getName.hasError('required')"
-            >Type Name is Required!</span
-          >
-          <span *ngIf="!unique && getName.value !== ''"
-            >Type Name Exists! Must be Unique!</span
-          >
-        </span>
+        <div *ngIf="getName.touched || clicked" class="text-danger">
+          <p *ngIf="getName.hasError('required')">Type Name is Required!</p>
+          <p *ngIf="!unique && getName.value !== ''">Type Name Exists! Must be Unique!</p>
+        </div>
       </div>
 
       <!-- Notes Text Area -->
-      <textarea
-        name="notes"
-        formControlName="notes"
-        placeholder="Notes"
-        class="form-control shadow-sm mb-5 mx-auto"
-        style="
-          background-color: rgba(0, 0, 0, 0.15);
-          border-width: 0px;
-          height: 130px;
-          width: 70%;
-        "
-      ></textarea>
+      <div class="form-group mb-4">
+        <textarea
+          name="notes"
+          formControlName="notes"
+          placeholder="Notes"
+          class="form-control rounded-3 p-2 bg-dark-subtle"
+        ></textarea>
+      </div>
 
       <!-- Submit and Cancel Buttons -->
       <div class="row mx-5">
         <div class="col"></div>
         <a
           class="btn btn-danger col me-3 py-2"
-          style="border-width: 0px; border-radius: 20px"
-          routerLink="/manage"
-          >Cancel</a
-        >
+          style="border-width: 0px; border-radius: 20px; background-color: #851214;"
+          routerLink="/manage/Type"
+        >Cancel</a>
 
         <input
           type="submit"
           value="{{ typeId === 0 ? 'Add' : 'Change' }}"
           class="btn text-light col ms-3"
-          style="
-            border-radius: 20px;
-            background-color: rgb(12, 12, 80);
-            border-width: 0px;
-          "
+          style="border-radius: 20px; background-color: #0C0D51; border-width: 0px;"
         />
         <div class="col"></div>
       </div>

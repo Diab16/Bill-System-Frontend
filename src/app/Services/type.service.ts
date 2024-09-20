@@ -7,7 +7,7 @@ import { IType } from '../Models/iType';
   providedIn: 'root'
 })
 export class TypeService {
-baseUrl: string = "https://localhost:7200/api/Type";
+  baseUrl: string = "https://localhost:7200/api/Type";
 //baseUrl: string = "https://localhost:44301/api/Type";
 
   constructor(private http: HttpClient) { }

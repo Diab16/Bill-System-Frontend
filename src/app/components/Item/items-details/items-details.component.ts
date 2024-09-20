@@ -16,11 +16,7 @@ import { TypeService } from '../../../Services/type.service';
 export class ItemsDetailsComponent  implements OnInit{
 
   id:any;
-  item:any;
-
-  type :any;
-  company:any;
-  unit:any;
+  Item:any;
 
   constructor(private activatedRoute : ActivatedRoute , 
               private Service : ItemsServiceService,
@@ -34,7 +30,7 @@ export class ItemsDetailsComponent  implements OnInit{
 
     this.Service.getById(this.id).subscribe({
       next:(resp)=>{
-        this.item = resp;
+        this.Item = resp;
       }
     })
   }
