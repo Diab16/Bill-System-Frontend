@@ -15,6 +15,9 @@ import { CompanyService } from '../../../Services/company.service';
 })
 export class CompanyFormComponent implements OnInit {
   id:any;
+  Message:string ='';
+  successMessage: string | null = null; // For storing success message
+  isLoading:boolean=false;
   companyForm = new FormGroup({
     name: new FormControl('',[Validators.required,]),
     notes: new FormControl('')
@@ -69,16 +72,22 @@ export class CompanyFormComponent implements OnInit {
     
   }
  
-  addCompany(e:any){
-    e.preventDefault();
-    this.clicked = true;
+  addCompany(){
+    this.isLoading = true;
     if(this.companyForm.status === "VALID"){
       if(this.id == 0 ){
         this.companyData = {...this.companyForm.value};
         this.companyService.AddCompany(this.companyData).subscribe({
           next:()=>{
-            alert(`Company ' ${this.companyData.name} ' Added Successfully !`);
-            this.router.navigate(["/manage/allCompanies"])
+            this.successMessage = 'Item added successfully!'; // Set success message
+            setTimeout(() => {
+              this.successMessage = null; // Clear message after 3 seconds
+              this.router.navigate(['/manage/allCompanies']); // Navigate to the manage route
+            }, 1500);  
+          }
+          ,error: (error) => {
+            console.error('Error fetching form data:', error);
+            this.showMessage("Error Adding Company !!!");
           }
         });
       }
@@ -88,7 +97,7 @@ export class CompanyFormComponent implements OnInit {
           next:()=>{
             var txt='';
             if (this.oldName != this.companyData.name) {
-              txt += `Company ( ${this.oldName} ) is Edited to ( ${this.companyData.name} ) Successfully !, \n`;
+              txt += `Company Name Changed !, \n`;
             }
             if (this.oldNotes != this.companyData.notes) {
               txt += `Notes Changed ! `;
@@ -96,19 +105,31 @@ export class CompanyFormComponent implements OnInit {
             if(txt == ''){
               txt += `Nothing Changed !`
             }
-            alert(txt);
-            
-            this.router.navigate(["/manage/allCompanies"])
+            this.successMessage = txt; // Set success message
+            setTimeout(() => {
+              this.successMessage = null; // Clear message after 3 seconds
+              this.router.navigate(['/manage/allCompanies']); // Navigate to the manage route
+            }, 1500);  
+          },
+          error: (error) => {
+            console.error('Error fetching form data:', error);
+            this.showMessage("Error Editing Company !!!");
           }
+            
         });
       }
       
       
     }
+    this.isLoading = false;
   }
 
+  showMessage(message: string) {
+    this.Message = message;
+    setTimeout(() => {
+      this.Message =''; 
+    }, 2000); 
+  }
 }
-function UniqueValidation() {
-  throw new Error('Function not implemented.');
-}
+
 

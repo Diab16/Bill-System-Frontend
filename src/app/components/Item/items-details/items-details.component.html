@@ -2,7 +2,7 @@
     <div class="p-3">
         <div class="container card-container">
           
-            <!-- Company Card -->
+            <!-- item Card -->
             <div class="card " style="border-radius: 15px; border-width: 0px;">
                   <!-- Title -->
                   <h2 class="card-title  mt-4" >
@@ -14,10 +14,10 @@
                       <a id="btn1" (mouseenter)="hoverIn()" class=" btn btn-outline-primary btn-back mt-3 fs-5 rounded-pill" routerLink="/manage"><i class="fas fa-arrow-left"></i></a>
                   </div>
                   <div class="m-0 p-0 backButton">
-                      <a id="btn2" (mouseleave)="hoverOut()" class=" btn btn-outline-primary btn-back mt-3 fs-5 rounded-pill" routerLink="/manage/Items"><i class="fas fa-arrow-left"></i> Back to Manage</a>
+                      <a id="btn2" (mouseleave)="hoverOut()" class=" btn btn-outline-primary btn-back mt-3 fs-5 rounded-pill" routerLink="/manage/Items"><i class="fas fa-arrow-left"></i> Back to Items</a>
                   </div>
                   </div>
-                <!-- Company Details Table -->
+                <!-- item Details Table -->
                 <div class="card-body ">
                     <table class="table table-striped table-responsive table-bordered "style="border-radius: 25px; overflow: hidden; background-color: #0C0D51;">
                         <thead class="bg-secondary text-light">
@@ -27,40 +27,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Company Name -->
+                            <!-- item Name -->
                             <tr>
                                 <td><strong>Name</strong></td>
-                                <td>{{company.name}}</td>
+                                <td>{{item.name}}</td>
                             </tr>
-                            <!-- Company ID -->
+                            <!-- item ID -->
                             <tr class="bg-light">
                                 <td><strong>ID</strong></td>
-                                <td>{{company.id}}</td>
+                                <td>{{item.id}}</td>
                             </tr>
                             <!-- Type Name -->
                             <tr>
                                 <td><strong>Type</strong></td>
-                                <td>{{company.type.name}}</td>
+                                <td>{{item.type.name}}</td>
                             </tr>
                             <!-- Unit Name -->
                             <tr class="bg-light">
                                 <td><strong>Unit</strong></td>
-                                <td>{{company.unit.name}}</td>
+                                <td>{{item.unit.name}}</td>
                             </tr>
                             <!-- Selling Price -->
                             <tr>
                                 <td><strong>Selling Price</strong></td>
-                                <td>{{company.sellingPrice | currency}}</td>
+                                <td>{{item.sellingPrice | currency}}</td>
                             </tr>
                             <!-- Buying Price -->
                             <tr class="bg-light">
                                 <td><strong>Buying Price</strong></td>
-                                <td>{{company.buyingPrice | currency}}</td>
+                                <td>{{item.buyingPrice | currency}}</td>
                             </tr>
                             <!-- Notes -->
                             <tr>
                                 <td><strong>Notes</strong></td>
-                                <td>{{company.notes}}</td>
+                                <td>{{item.notes}}</td>
                             </tr>
                         </tbody>
                     </table>

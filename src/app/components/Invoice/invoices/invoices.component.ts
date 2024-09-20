@@ -1,23 +1,23 @@
-import { SearchPipePipe } from './../../search-pipe.pipe';
-import { Component, OnInit, Pipe } from '@angular/core';
-import {  Router, RouterLink } from '@angular/router';
-import { ItemsServiceService } from '../../Services/items-service.service';
-import { Iitems } from '../../Interfaces/Iitems';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgModel } from '@angular/forms';
+import {FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { InvoiceService } from '../../../Services/invoice.service';
+import { IInvoice } from '../../../Interfaces/iInvoice';
+import { SearchBillNumPipe } from '../../../search-bill-num.pipe';
+
 
 @Component({
-  selector: 'app-items',
+  selector: 'app-invoices',
   standalone: true,
-  imports: [ RouterLink ,CommonModule ,SearchPipePipe ,FormsModule ],
-  templateUrl: './items.component.html',
-  styleUrl: './items.component.css'
+  imports: [RouterLink ,CommonModule ,SearchBillNumPipe ,FormsModule],
+  templateUrl: './invoices.component.html',
+  styleUrls: ['./invoices.component.css']
 })
-export class ItemsComponent implements OnInit {
-
-  constructor(private service:ItemsServiceService , public router:Router ){}
-  itemms: Iitems[] = [];
-  searchterm: string =''
+export class InvoicesComponent implements OnInit {
+  constructor(private service:InvoiceService , public router:Router ){}
+  invoices: any[] = [];
+  searchterm: string ='';
 
   isLoading = false;
   message: string = '';
@@ -29,8 +29,11 @@ export class ItemsComponent implements OnInit {
 
 
   loadItems() {
-    this.service.getAllItems().subscribe({
-      next: (items) => this.itemms = items,
+    this.service.GetAllInvoices().subscribe({
+      next: (response) =>{
+        console.log(response);       
+        this.invoices = response;
+      } ,
       error: (error) => console.error('Error loading items:', error)
     });
   }
@@ -38,7 +41,7 @@ export class ItemsComponent implements OnInit {
   Delete(id: number) {
     if (confirm('Are you sure you want to delete this item?')) {
       this.isLoading = true;
-      this.service.deleteItem(id).subscribe({
+      this.service.DeleteInvoice(id).subscribe({
         next: (response) => {
           console.log(response);
           this.message = 'Item deleted successfully';
@@ -71,11 +74,4 @@ export class ItemsComponent implements OnInit {
       btn2.style.display ="none";
     }
   }
-
-
-
-
-
-
-
 }
