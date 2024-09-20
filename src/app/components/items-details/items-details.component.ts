@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class ItemsDetailsComponent  implements OnInit{
 
   id:any;
-  company:any;
+  Item:any;
 
   constructor(private activatedRoute : ActivatedRoute , private Service : ItemsServiceService) 
   {   
@@ -23,7 +23,7 @@ export class ItemsDetailsComponent  implements OnInit{
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.Service.getById(this.id).subscribe({
       next:(resp)=>{
-        this.company = resp;
+        this.Item = resp;
       }
     })
   }

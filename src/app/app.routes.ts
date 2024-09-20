@@ -43,7 +43,7 @@ export const routes: Routes = [
     {path: 'manage/addClient',component:ClientsComponent},
     {path: 'manage/addItem', component: AddItemsComponent},
     {path: 'AddInvoice', component: InvoicesComponent},
-  { path: 'Login', component: LoginComponent },
+    {path: 'Login', component:LoginComponent},
     { path: 'manage/Type', component: TypeComponent },
     { path: 'manage/Type/:id', component: TypeDetailsComponent },
     { path: 'manage/editType/:id', component: TypeFormComponent },
