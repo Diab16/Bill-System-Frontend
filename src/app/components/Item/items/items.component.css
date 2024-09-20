@@ -1,3 +1,6 @@
+
+
+
 table th
 {
     background-color: #0C0D51;
@@ -48,21 +51,3 @@ table th
         box-shadow: 10px 10px 8px #888888;    
     }
 }
-
-td{    
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-left: 30px;
-
-}
-.notes{
-    --max-lines: 2;
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    line-clamp: 2;
-    -webkit-line-clamp: var(--max-lines);
-    text-overflow:ellipsis;
-    max-width: 250px;
-}
-

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { IType } from '../../Models/iType';
-import { TypeService } from '../../Services/type.service';
-import { CompanyService } from '../../Services/company.service';
+import { IType } from '../../../Models/iType';
+import { TypeService } from '../../../Services/type.service';
+import { CompanyService } from '../../../Services/company.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

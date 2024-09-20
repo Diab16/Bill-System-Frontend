@@ -9,8 +9,8 @@ import { IFormdata } from '../Interfaces/Iformdata';
 export class ItemsServiceService {
 
   constructor(public httpclint:HttpClient) { }
-  apiurl = "https://localhost:44301/api/Items"
-//  apiurl =  "https://localhost:7200/api/Items"  
+  //apiurl = "https://localhost:44301/api/Items"
+ apiurl =  "https://localhost:7200/api/Items"  
 
 
  getAllItems():Observable<Iitems[]>

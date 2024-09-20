@@ -1,10 +1,10 @@
-import { Iitems } from './../../Interfaces/Iitems';
+import { Iitems } from '../../../Interfaces/Iitems';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
-import { ItemsServiceService } from '../../Services/items-service.service';
-import { IFormdata } from '../../Interfaces/Iformdata';
+import { ItemsServiceService } from '../../../Services/items-service.service';
+import { IFormdata } from '../../../Interfaces/Iformdata';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 
@@ -16,7 +16,7 @@ import { catchError, map, Observable, of } from 'rxjs';
   styleUrl: './add-items.component.css'
 })
 export class AddItemsComponent implements OnInit {
-   Message:string =''
+   Message:string ='';
   isLoading:boolean=false;
   formdata!: IFormdata; 
   itemms:Iitems[] = [];

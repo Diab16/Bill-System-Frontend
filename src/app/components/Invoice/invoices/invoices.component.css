@@ -1,10 +1,11 @@
 
- table th
+
+
+table th
 {
     background-color: #0C0D51;
     color: #FFFFFF;
 }
-
 
 #btn2{
     display: none;
@@ -32,4 +33,21 @@
     text-overflow: ellipsis;
     max-width: 150px;
     width: 100%;
+}
+@keyframes colors{
+    0%{
+        opacity: 30%;
+        width: 30%;
+        box-shadow: 10px 10px 8px #888888;
+    }
+    30%{
+        opacity: 65%;
+        width: 65%;
+        box-shadow: 10px 10px 8px #888888;
+    }
+    100%{
+        width: 100%;
+        opacity: 100%;
+        box-shadow: 10px 10px 8px #888888;    
+    }
 }

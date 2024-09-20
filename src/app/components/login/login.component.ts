@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { ItemsComponent } from '../items/items.component';
+import { ItemsComponent } from '../Item/items/items.component';
 import { ItemsServiceService } from '../../Services/items-service.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
