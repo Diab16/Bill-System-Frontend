@@ -12,9 +12,9 @@ import { EditItemsComponent } from './components/Item/edit-items/edit-items.comp
 import { AllCompaniesComponent } from './components/Company/all-companies/all-companies.component';
 import { CompanyDetailsComponent } from './components/Company/company-details/company-details.component';
 
-import { TypeFormComponent } from './components/type-form/type-form.component';
-import { TypeComponent } from './components/type/type.component';
-import { TypeDetailsComponent } from './components/type-details/type-details.component';
+import { TypeFormComponent } from './components/Types/type-form/type-form.component';
+import { TypeComponent } from './components/Types/type/type.component';
+import { TypeDetailsComponent } from './components/Types/type-details/type-details.component';
 import { UnitsComponent } from './components/units/units.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { ItemsDetailsComponent } from './components/Item/items-details/items-details.component';

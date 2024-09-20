@@ -79,7 +79,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyData = {...this.companyForm.value};
         this.companyService.AddCompany(this.companyData).subscribe({
           next:()=>{
-            this.successMessage = 'Item added successfully!'; // Set success message
+            this.successMessage = 'Company added successfully!'; // Set success message
             setTimeout(() => {
               this.successMessage = null; // Clear message after 3 seconds
               this.router.navigate(['/manage/allCompanies']); // Navigate to the manage route

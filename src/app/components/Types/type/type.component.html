@@ -42,8 +42,8 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Company Name</th>
           <th scope="col">Type Name</th>
+          <th scope="col">Company Name</th>
           <th scope="col">Notes</th>
           <th scope="col">Actions</th>
         </tr>
@@ -52,11 +52,11 @@
         <tr *ngFor="let type of filteredTypes()" class="align-middle">
           <td>{{ type.typeId }}</td>
           <td>
-            <span class="badge alert alert-success py-2">
-              {{ type.companyName }}
+            <span class="badge alert alert-success py-2 mt-3 mb-2">
+              {{ type.typeName }}
             </span>
           </td>
-          <td class="type-name">{{ type.typeName }}</td>
+          <td class="type-name">{{ type.companyName }}</td>
           <td class="notes">{{ type.typeNotes || "N/A" }}</td>
           <td class="actions">
             <button [routerLink]="['/manage/Type', type.typeId]" class="btn btn-sm me-3 btn-outline-success shadow-sm" style="border-radius: 29px;">

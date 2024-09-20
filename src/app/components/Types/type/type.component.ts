@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { IType } from '../../Models/iType';
-import { TypeService } from '../../Services/type.service';
+import { IType } from '../../../Models/iType';
+import { TypeService } from '../../../Services/type.service';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
