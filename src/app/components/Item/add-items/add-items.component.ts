@@ -5,7 +5,6 @@ import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ReactiveForm
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { ItemsServiceService } from '../../../Services/items-service.service';
 import { IFormdata } from '../../../Interfaces/Iformdata';
-import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 
 @Component({
@@ -25,7 +24,7 @@ export class AddItemsComponent implements OnInit {
   unitsList: { id: number; name: string }[] = []; 
   successMessage: string | null = null; // For storing success message
 
-  constructor( private service:ItemsServiceService ,private HttpClien:HttpClient , public router:Router){}
+  constructor( private service:ItemsServiceService , public router:Router){}
   AddItemsForm:FormGroup = new FormGroup({
     companyId: new FormControl("" , [Validators.required]),
     typeId:new FormControl('' , [Validators.required,]),

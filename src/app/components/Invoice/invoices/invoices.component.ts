@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { InvoiceService } from '../../../Services/invoice.service';
 import { IInvoice } from '../../../Interfaces/iInvoice';
 import { SearchBillNumPipe } from '../../../search-bill-num.pipe';
@@ -15,13 +15,15 @@ import { SearchBillNumPipe } from '../../../search-bill-num.pipe';
   styleUrls: ['./invoices.component.css']
 })
 export class InvoicesComponent implements OnInit {
-  constructor(private service:InvoiceService , public router:Router ){}
+  constructor(private service:InvoiceService , public router:Router , private activatedRoute:ActivatedRoute){}
   invoices: any[] = [];
   searchterm: string ='';
 
+  url:string="";
   isLoading = false;
   message: string = '';
   ngOnInit(): void {
+    this.url = this.activatedRoute.snapshot.url[0].path;
     
     this.loadItems();
 
@@ -39,12 +41,12 @@ export class InvoicesComponent implements OnInit {
   }
 
   Delete(id: number) {
-    if (confirm('Are you sure you want to delete this item?')) {
+    if (confirm('Are you sure you want to delete this Invoice?')) {
       this.isLoading = true;
       this.service.DeleteInvoice(id).subscribe({
         next: (response) => {
           console.log(response);
-          this.message = 'Item deleted successfully';
+          this.message = 'Invoice deleted successfully';
         },
         error: (error) => {
           console.error('Error deleting item:', error);

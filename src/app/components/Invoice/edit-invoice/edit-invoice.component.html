@@ -5,7 +5,7 @@
         <div class="col">
           <h3 class="p-2"><i class="fa-solid fa-file-invoice-dollar"></i> Bill Details</h3>
           <hr style="border-style: dashed; margin-top: 0px; margin-bottom: 20px;">
-          <form id="AddInvoiceDetails" (ngSubmit)="handelAdditem(AddInvoiceDetailsForm)" [formGroup]="AddInvoiceDetailsForm">
+          <form id="AddInvoiceDetails" (ngSubmit)="handelEditItem(AddInvoiceDetailsForm)" [formGroup]="AddInvoiceDetailsForm">
       
             <div class="p-0 mb-2">
                 <label class="pb-1">Bill Date</label>
@@ -152,7 +152,7 @@
         <div class="m-0 p-2 mt-3 ">
           <h3 class="p-2"><i class="fa-solid fa-coins"></i> Other Details</h3>
           <hr style="border-style: dashed; margin-top: 0px; margin-bottom: 20px;">
-          <form id="AddInvoiceDetails" (ngSubmit)="handelAdditem(AddInvoiceDetailsForm)" [formGroup]="AddInvoiceDetailsForm">
+          <form id="AddInvoiceDetails" (ngSubmit)="handelEditItem(AddInvoiceDetailsForm)" [formGroup]="AddInvoiceDetailsForm">
     
             <div class="">
               <div class="p-0 m-0 row">
@@ -177,7 +177,7 @@
               <div class="m-0 p-0 row">
                 <div class="p-0 mb-2 me-3 col">
                   <label class="pb-1 ms-1">The Net <span class="fw-bold">($)</span></label>
-                  <input formControlName="net" readonly="true" [value]="getNet.value | currency" type="text" class="form-control text-success rounded-3 p-2 mb-2 bg-dark-subtle" placeholder="The Net">
+                  <input formControlName="net" (ngModelChange)="onPaidUpChange()" readonly="true" [value]="getNet.value | currency" type="text" class="form-control text-success rounded-3 p-2 mb-2 bg-dark-subtle" placeholder="The Net">
                 </div>
                 <div class="p-0 mb-2 col">
                   <label class="pb-1 ms-1">Value Discount <span class="fw-bold">($)</span></label>
@@ -211,43 +211,22 @@
           </form>
     
           <hr style="border-style: dashed;" class="my-4">
-          <div id="msg" class="alert alert-danger p-1" style="display: none;">
-
-          </div>
+    
           <div>
             <button [disabled]="AddInvoiceDetailsForm.invalid" class="btn text-light mx-2 rounded-pill" style="background-color: #0C0D51;width: 15%;" form="AddInvoiceDetails" type="submit" >
                 <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
-                <span *ngIf="!isLoading">Save</span>
+                <span *ngIf="!isLoading">Edit</span>
               </button>
         
-              <button   routerLink=".."  type="button" class="btn  rounded-pill text-light mx-2" style="background-color: #851214;width: 15%;">Cancel</button>    
+              <button   routerLink="/manage/Invoices"  type="button" class="btn  rounded-pill text-light mx-2" style="background-color: #851214;width: 15%;">Cancel</button>    
           </div>
         </div>
       </section>
     </section>
-  
-    <!-- Success Popup Message -->
-     
-    
-    @if ( successMessage?.endsWith('Successfully!')) {
-      <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message">
-        <span class="checkmark">&#10003;</span>
-        <p>{{ successMessage }}</p>
-      </div>
-    }@else if (successMessage?.endsWith("Successfully")) {
-      <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message bg-warning">
-        <span class="checkmark">&#10003;</span>
-        <p>{{ successMessage }}</p>
-      </div>
-    }@else {
-      <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message bg-danger">
-        <span class="checkmark bg-danger">&#10005;</span>
-        <p>{{ successMessage }}</p>
-      </div>
-    }
-      
-
   </section>
   
-
+    
+  <section class="container ">
+      
+</section>
     
