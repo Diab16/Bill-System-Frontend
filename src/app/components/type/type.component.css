@@ -1,29 +1,6 @@
-/* General Table Styling */
-table {
-  width: 100%;
-}
-
-th {
-  background-color: rgb(12, 12, 80);
-  font-size: larger;
-  color: white;
-  border-width: 0px;
-  border-bottom: 0px;
-  padding-left: 30px;
-}
-
-td {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-left: 30px;
-}
-
-/* Back Button Styling */
-.backButton {
-  display: flex;
-  justify-content: start;
-  max-width: 210px;
-  white-space: nowrap;
+table th {
+  background-color: #0C0D51;
+  color: #FFFFFF;
 }
 
 #btn2 {
@@ -36,30 +13,14 @@ td {
   animation-timing-function: linear;
 }
 
-/* Type Name and Notes Field Styling */
-.type-name {
-  --max-lines: 1;
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: var(--max-lines);
-  text-overflow: ellipsis;
-  max-width: 200px;
-  /* Adjust width as needed */
+.backButton {
+  display: flex;
+  justify-content: start;
+  max-width: 210px;
+  white-space: nowrap;
 }
 
-.notes {
-  --max-lines: 2;
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: var(--max-lines);
-  text-overflow: ellipsis;
-  max-width: 250px;
-  /* Adjust width as needed */
-}
-
-.names span {
+span {
   border-radius: 15px;
   overflow: hidden;
   white-space: nowrap;
@@ -68,50 +29,47 @@ td {
   width: 100%;
 }
 
-/* Add Button Styling */
-#add {
-  border-color: rgb(12, 12, 80);
-  color: rgb(12, 12, 80);
-}
-
-#add:hover {
-  cursor: pointer;
+.popup-message {
+  position: absolute;
+  top: 20px;
+  left: 57%;
+  transform: translateX(-50%);
+  background-color: #e90a0a;
   color: white;
-  background: rgb(12, 12, 80);
-}
-
-/* Action Icon Styling */
-.actions {
-  display: flex;
-  gap: 0.5rem;
-  /* Space between icons */
-  justify-content: center;
-  /* Center the icons if needed */
-}
-
-.actions .btn {
-  padding: 0.5rem;
-  /* Padding around icons */
+  padding: 8px 40px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
   font-size: 1.2rem;
-  /* Adjust icon size */
+  text-align: center;
+  width: auto;
+  max-width: 95%;
+  line-height: 1.3;
+  border: none;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
-@keyframes colors {
-  0% {
-    opacity: 30%;
-    width: 30%;
-    box-shadow: 10px 10px 8px #888888;
-  }
+.popup-message .checkmark {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0 auto;
+  display: block;
+}
 
-  30% {
-    opacity: 65%;
-    width: 65%;
-    box-shadow: 10px 10px 8px #888888;
-  }
+.popup-message p {
+  font-size: 1rem;
+  margin-top: 5px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
 
-  100% {
-    width: 100%;
-    opacity: 100%;
-    box-shadow: 10px 10px 8px #888888;
-  }
+.popup-message.show {
+  opacity: 1;
+}
+
+.popup-message.show p {
+  opacity: 1;
 }
