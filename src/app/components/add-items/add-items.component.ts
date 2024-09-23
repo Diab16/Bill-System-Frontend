@@ -20,10 +20,10 @@ export class AddItemsComponent implements OnInit {
   isLoading:boolean=false;
   formdata!: IFormdata; 
   itemms:Iitems[] = [];
-  companyList: { id: number; name: string }[] = []; 
-  typeList: { id: number; name: string }[] = []; 
+  companyList: { id: number; name: string  ,types:{id:number , name:string}[] }[] = []; 
   unitsList: { id: number; name: string }[] = []; 
   successMessage: string | null = null; // For storing success message
+  selectedCompany: { id: number; name: string; types:{id :number , name:string}[]} | null = null;
 
   constructor( private service:ItemsServiceService ,private HttpClien:HttpClient , public router:Router){}
   AddItemsForm:FormGroup = new FormGroup({
@@ -46,19 +46,21 @@ export class AddItemsComponent implements OnInit {
       next: (response) => {
         this.formdata = response;
         this.companyList = this.formdata.companies;
-        this.typeList = this.formdata.types;
         this.unitsList = this.formdata.units;
       },
       error: (error) => {
         console.error('Error fetching form data:', error);
       }
     });
-
-   
-
   }
 
- 
+  //event to get the types of the selected company 
+
+  onCompanyChange(event: any) {
+    const companyId = +event.target.value;
+    this.selectedCompany = this.companyList.find(company => company.id === companyId) || null;
+    this.AddItemsForm.patchValue({ typeId: '' }); // Reset typeId when company changes
+  }
 
 
    //price custom  validators
