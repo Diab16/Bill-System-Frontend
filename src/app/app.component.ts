@@ -4,7 +4,7 @@ import { NavbareComponent } from "./components/navbare/navbare.component";
 import { SideNavbareComponent } from "./components/side-navbare/side-navbare.component";
 import { MainComponent } from "./components/main/main.component";
 import { CommonModule } from '@angular/common';
-import { UnitsComponent } from './components/units/units.component';
+// import { UnitsComponent } from './components/units/units.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyFormComponent } from './components/Company/company-form/company-form.component';
@@ -12,7 +12,7 @@ import { CompanyFormComponent } from './components/Company/company-form/company-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbareComponent, SideNavbareComponent, MainComponent ,RouterLink,RouterModule ,CommonModule,CompanyFormComponent,UnitsComponent,ClientsComponent,ReactiveFormsModule],
+  imports: [RouterOutlet, NavbareComponent, SideNavbareComponent, MainComponent ,RouterLink,RouterModule ,CommonModule,CompanyFormComponent,ClientsComponent,ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
