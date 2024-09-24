@@ -5,7 +5,7 @@ export interface IInvoice {
     billTotal:number;
     billNumber: number;
     date: Date;
-    clientId: number;
+    client:{id:number , name:string};
     percentageDiscount: number;
     paidUp: number;
     invoiceItems:IInvoiceItem[];

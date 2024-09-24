@@ -34,10 +34,18 @@ export class ItemsServiceService {
  {
      return this.httpclint.get<Iitems>(`${this.apiurl}/GetById?id=${id}`)
  }
+ getAmountById(id:number):Observable<any>
+ {
+     return this.httpclint.get<number>(`${this.apiurl}/GetAmountById/${id}`)
+ }
 
 editItem(item:Iitems)
 {
      return this.httpclint.put<Iitems>(`${this.apiurl}` , item)
+}
+editAmountByItemId( id:number , amount:number)
+{
+     return this.httpclint.put(`${this.apiurl}/${id}/${amount}`,null)
 }
 
 deleteItem(id:number)
