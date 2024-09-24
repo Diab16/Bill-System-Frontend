@@ -20,6 +20,7 @@ export class AddItemsComponent implements OnInit {
   isLoading:boolean=false;
   formdata!: IFormdata; 
   itemms:Iitems[] = [];
+  typeList: { id: number; name: string }[] = []; 
   companyList: { id: number; name: string  ,types:{id:number , name:string}[] }[] = []; 
   unitsList: { id: number; name: string }[] = []; 
   successMessage: string | null = null; // For storing success message
@@ -113,6 +114,7 @@ export class AddItemsComponent implements OnInit {
           }
           this.typeList.push(mappedType);
         }
+        this.AddItemsForm.get('typeId')?.reset('');
         console.log(this.typeList);
         
       }
