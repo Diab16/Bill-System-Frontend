@@ -24,7 +24,7 @@
         <div class="form-group position-relative">
           <select formControlName="typeId" class="form-control rounded-3 p-2 bg-dark-subtle">
             <option value="" selected>Select Type Name</option>
-            <option *ngFor="let type of typeList" [value]="type.id" >{{ type.name }}</option>
+            <option *ngFor="let type of selectedCompany?.types" [value]="type.id" >{{ type.name }}</option>
           </select>
           <i class="fa fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
         </div>

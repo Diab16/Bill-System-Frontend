@@ -20,9 +20,9 @@ export class EditItemsComponent  implements OnInit{
   Message:string =''
   isLoading:boolean=false;
   formdata!: IFormdata; 
-  itemms:Iitems [] =[];
+  itemms!:Iitems;
   itemid:any; 
-  companyList: { id: number; name: string }[] = []; 
+  companyList: { id: number; name: string  ,types:{id:number , name:string}[] }[] = []; 
   typeList: { id: number; name: string }[] = []; 
   unitsList: { id: number; name: string }[] = []; 
   EditItemsForm: FormGroup = new FormGroup({});
@@ -38,7 +38,7 @@ export class EditItemsComponent  implements OnInit{
     this.EditItemsForm = new FormGroup({
       id: new FormControl(null),  // Hidden field
       companyId: new FormControl(null, [Validators.required]),
-      typeId: new FormControl(null, [Validators.required]),
+      typeId: new FormControl( [Validators.required]),
       name: new FormControl('', {
         validators: [Validators.required],
         asyncValidators: [this.uniqueItemNameValidator(this.itemid)],
@@ -54,6 +54,7 @@ export class EditItemsComponent  implements OnInit{
 
   
     this.loadFormData();
+    
   }
    //price custom  validators
    PriceValidation():ValidatorFn {
@@ -124,10 +125,10 @@ export class EditItemsComponent  implements OnInit{
         this.companyList = formData.companies;
         //this.typeList = formData.types;
         this.unitsList = formData.units;
-
+  
         if (this.itemid) {
           this.service.getById(this.itemid).subscribe({
-            next: (item) => {
+            next: (item: Iitems) => {
               this.itemms = item;
               //this.getCompanyTypes(item.companyId);
               this.EditItemsForm.patchValue(item);
@@ -144,11 +145,21 @@ export class EditItemsComponent  implements OnInit{
     });
   }
   
+  
+  
+
+
+
+
+
+
+
+
+
+
   handelEdititem() {
     this.isLoading = true;
-    console.log(this.EditItemsForm.value);
-    console.log(this.EditItemsForm.status) ;
-    console.log( this.itemid );
+
         
     if (this.EditItemsForm.valid) {
       if (this.itemid) {

@@ -20,10 +20,10 @@ export class AddItemsComponent implements OnInit {
   isLoading:boolean=false;
   formdata!: IFormdata; 
   itemms:Iitems[] = [];
-  companyList: { id: number; name: string }[] = []; 
-  typeList: { id: number; name: string }[] = []; 
+  companyList: { id: number; name: string  ,types:{id:number , name:string}[] }[] = []; 
   unitsList: { id: number; name: string }[] = []; 
   successMessage: string | null = null; // For storing success message
+  selectedCompany: { id: number; name: string; types:{id :number , name:string}[]} | null = null;
 
   constructor( private service:ItemsServiceService , public router:Router,private typeService:TypeService){}
   AddItemsForm:FormGroup = new FormGroup({
