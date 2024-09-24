@@ -73,4 +73,18 @@
     </table>
   </div>
 
+  <!-- Success Popup Message -->
+     
+    
+  @if (successMessage?.endsWith("Successfully!")) {
+    <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message bg-warning">
+      <span class="checkmark">&#10003;</span>
+      <p>{{ successMessage }}</p>
+    </div>
+  }@else {
+    <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message bg-danger">
+      <span class="checkmark bg-danger">&#10005;</span>
+      <p>{{ successMessage }}</p>
+    </div>
+  }
 </section>

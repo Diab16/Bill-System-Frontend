@@ -6,6 +6,7 @@ import { Iitems } from '../../../Interfaces/Iitems';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, map, Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { TypeService } from '../../../Services/type.service';
 
 @Component({
   selector: 'app-edit-items',
@@ -26,9 +27,9 @@ export class EditItemsComponent  implements OnInit{
   unitsList: { id: number; name: string }[] = []; 
   EditItemsForm: FormGroup = new FormGroup({});
   successMessage: string | null = null; // For storing success message
+  cnt:number =0;
 
-
-  constructor(private service:ItemsServiceService , public route:ActivatedRoute  , public router:Router){}
+  constructor(private service:ItemsServiceService , public route:ActivatedRoute  , public router:Router,private typeService:TypeService){}
 
 
 
@@ -49,6 +50,8 @@ export class EditItemsComponent  implements OnInit{
       unitId: new FormControl(null, [Validators.required]),
       notes: new FormControl('')
     }, { validators: this.PriceValidation() });
+    this.EditItemsForm.get('companyId')?.valueChanges.subscribe(() => this.getCompanyTypes(this.EditItemsForm.get('companyId')?.value));
+
   
     this.loadFormData();
   }
@@ -91,18 +94,42 @@ export class EditItemsComponent  implements OnInit{
     };
   }
   
-  
+  getCompanyTypes(id:any){
+    this.typeList = [];
+    const companyName = this.companyList.find(c=>c.id == id)?.name;
+    console.log(companyName);
+    
+    this.typeService.GetTypeByCompanyName(companyName).subscribe({
+      next:(response)=>{
+        for (var type of response) {
+          var mappedType = {
+            id:type.typeId,
+            name:type.typeName
+          }
+          this.typeList.push(mappedType);
+        }
+        console.log(this.typeList);
+        if (this.cnt > 0) {
+          this.EditItemsForm.get('typeId')?.reset('');
+        }
+        this.cnt++;
+        
+      }
+    })
+  }
+
   loadFormData() {
     this.service.getFormData().subscribe({
       next: (formData) => {
         this.companyList = formData.companies;
-        this.typeList = formData.types;
+        //this.typeList = formData.types;
         this.unitsList = formData.units;
 
         if (this.itemid) {
           this.service.getById(this.itemid).subscribe({
             next: (item) => {
               this.itemms = item;
+              //this.getCompanyTypes(item.companyId);
               this.EditItemsForm.patchValue(item);
             },
             error: (error) => {

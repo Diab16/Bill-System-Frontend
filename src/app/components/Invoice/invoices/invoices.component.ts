@@ -21,7 +21,8 @@ export class InvoicesComponent implements OnInit {
 
   url:string="";
   isLoading = false;
-  message: string = '';
+  successMessage: string | null = null; // For storing success message
+
   ngOnInit(): void {
     this.url = this.activatedRoute.snapshot.url[0].path;
     
@@ -46,11 +47,18 @@ export class InvoicesComponent implements OnInit {
       this.service.DeleteInvoice(id).subscribe({
         next: (response) => {
           console.log(response);
-          this.message = 'Invoice deleted successfully';
+          this.successMessage = 'Invoice deleted Successfully!';
+          setTimeout(() => {
+            this.successMessage=null;
+          }, 2000);
+
         },
         error: (error) => {
           console.error('Error deleting item:', error);
-          this.message = 'Error deleting item';
+          this.successMessage = 'Error deleting item';
+          setTimeout(() => {
+            this.successMessage=null;
+          }, 2000);
         },
         complete: () => {
           this.isLoading = false;

@@ -25,16 +25,16 @@
         <div>
           <textarea formControlName="notes"  class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Notes"></textarea>
         </div>
-        <button *ngIf="id==0" [disabled]="companyForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
+        <button *ngIf="id==0" [disabled]="companyForm.invalid" class="btn text-light mx-2 rounded-4" style="width:15%; background-color: #0C0D51;" type="submit">
           <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
           <span *ngIf="!isLoading">Add</span>
         </button>
-        <button *ngIf="id != 0" [disabled]="companyForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
+        <button *ngIf="id != 0" [disabled]="companyForm.invalid" class="btn text-light mx-2 rounded-4" style="width:15%; background-color: #0C0D51;" type="submit">
             <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
             <span *ngIf="!isLoading">Edit</span>
           </button>
   
-        <button   routerLink="/manage/allCompanies"  type="button" class="btn  rounded-4 text-light mx-2" style="background-color: #851214">Cancel</button>
+        <button   routerLink="/manage/allCompanies"  type="button" class="btn  rounded-4 text-light mx-2" style="width:15%; background-color: #851214">Cancel</button>
       </form>
     </div>
     <!-- Success Popup Message -->

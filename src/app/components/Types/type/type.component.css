@@ -1,3 +1,151 @@
+  
+  
+textarea.form-control {
+  resize: vertical; 
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px; 
+  text-align: center;
+  transition: opacity 0.4s ease-in-out; 
+  opacity: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.alert.success {
+  background-color: #4CAF50; 
+  color: white; 
+}
+
+.alert.error {
+  background-color: #f44336; 
+  color: white; 
+}
+
+
+
+
+@media (max-width: 768px) {
+  textarea.form-control {
+    width: 100%;
+  }
+}
+@media (max-width: 576px) {
+  .form-control {
+    font-size: 14px;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+
+  textarea {
+    font-size: 14px;
+  }
+}
+
+
+
+/* Style the popup message like an alert */
+.popup-message {
+position: fixed;
+top: 20px;
+/* Position the popup at the top of the screen */
+left: 50%;
+transform: translateX(-50%);
+background-color: #34C759;
+/* Success color */
+color: white;
+padding: 15px 25px;
+/* Padding for content spacing */
+border-radius: 5px;
+/* Slightly rounded corners */
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* Subtle shadow for depth */
+z-index: 1000;
+/* Ensure it's above other content */
+font-size: 1.2rem;
+/* Slightly smaller font size */
+text-align: center;
+width: auto;
+max-width: 80%;
+/* Adjusted width for better responsiveness */
+line-height: 1.4;
+border: none;
+box-sizing: border-box;
+opacity: 0;
+/* Initially hidden */
+transition: opacity 0.5s ease-in-out;
+/* Fade-in effect */
+}
+
+/* Style the checkmark */
+.popup-message .checkmark {
+font-size: 2.5rem;
+/* Adjusted size for better fit */
+font-weight: bold;
+color: #ffffff;
+/* White color for visibility */
+margin: 0 auto;
+/* Center the checkmark horizontally */
+display: block;
+/* Ensure block display for centering */
+}
+
+/* Style the text */
+.popup-message p {
+font-size: 1rem;
+/* Normal font size for text */
+margin-top: 10px;
+/* Spacing between checkmark and text */
+opacity: 0;
+/* Initially hidden */
+transition: opacity 0.5s ease-in-out;
+/* Fade-in effect */
+}
+
+/* Show the popup message and text */
+.popup-message.show {
+opacity: 1;
+animation-name: opac;
+animation-duration: 2s;
+animation-iteration-count: 1;
+animation-timing-function: linear;
+/* Show the popup */
+}
+
+.popup-message.show p {
+opacity: 1;
+/* Show the text */
+}
+
+  @keyframes opac{
+      0%{
+          opacity: 0%;
+      }
+      20%{
+          opacity: 100%;
+      }
+      30%{
+          opacity: 100%;
+      }
+      50%{
+          opacity: 100%;
+      }
+      65%{
+          opacity: 100%;
+      }
+      85%{
+          opacity: 100%;
+      }
+      100%{
+          opacity: 0%;
+      }
+  }
+
+
 table th {
   background-color: #0C0D51;
   color: #FFFFFF;
@@ -20,6 +168,14 @@ table th {
   white-space: nowrap;
 }
 
+.sort{
+  color: #FFFFFF;
+}
+.sort:hover{
+  color: #888888;
+  cursor: pointer;
+}
+
 span {
   border-radius: 15px;
   overflow: hidden;
@@ -29,47 +185,3 @@ span {
   width: 100%;
 }
 
-.popup-message {
-  position: absolute;
-  top: 20px;
-  left: 57%;
-  transform: translateX(-50%);
-  background-color: #e90a0a;
-  color: white;
-  padding: 8px 40px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  font-size: 1.2rem;
-  text-align: center;
-  width: auto;
-  max-width: 95%;
-  line-height: 1.3;
-  border: none;
-  box-sizing: border-box;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.popup-message .checkmark {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #ffffff;
-  margin: 0 auto;
-  display: block;
-}
-
-.popup-message p {
-  font-size: 1rem;
-  margin-top: 5px;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.popup-message.show {
-  opacity: 1;
-}
-
-.popup-message.show p {
-  opacity: 1;
-}

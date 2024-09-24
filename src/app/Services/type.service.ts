@@ -20,7 +20,10 @@ export class TypeService {
   }
   GetTypeById(typeId: any) {
   return this.http.get<IType>(`${this.baseUrl}/${typeId}`);
-}
+  }
+  GetTypeByCompanyName(companyName: any) {
+    return this.http.get<IType[]>(`${this.baseUrl}/GetTypesByCompanyName?companyName=${companyName}`);
+    }
   EditType(type: IType, typeId: any) {
     return this.http.put(`${this.baseUrl}/${typeId}`, type);
   }
