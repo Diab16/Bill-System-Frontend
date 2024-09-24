@@ -16,13 +16,16 @@ import { TypeFormComponent } from './components/Types/type-form/type-form.compon
 import { TypeComponent } from './components/Types/type/type.component';
 import { TypeDetailsComponent } from './components/Types/type-details/type-details.component';
 // import { UnitsComponent } from './components/units/units.component';
-import { ClientsComponent } from './components/clients/clients.component';
+// import { ClientsComponent } from './components/clients/clients.component';
 import { ItemsDetailsComponent } from './components/Item/items-details/items-details.component';
 import { LoginComponent } from './components/login/login.component';
 import { AddInvoiceComponent } from './components/Invoice/add-invoice/add-invoice.component';
 import { AllUnitsComponent } from './components/units/all-units/all-units.component';
 import { UnitDetailsComponent } from './components/units/unit-details/unit-details.component';
 import { UnitFormComponent } from './components/units/unit-form/unit-form.component'; // Corrected import
+import { AllClientsComponent } from './components/clients/all-clients/all-clients.component';
+import { ClientDetailsComponent } from './components/clients/client-details/client-details.component';
+import { ClientFormComponent } from './components/clients/client-form/client-form.component';
 
 
 
@@ -36,7 +39,7 @@ export const routes: Routes = [
     {path: 'manage/addCompany', component: CompanyFormComponent },
     {path: 'manage/addType', component: TypeFormComponent},
     // {path: 'units',component:UnitsComponent},
-    {path: 'clients',component:ClientsComponent},
+    // {path: 'clients',component:ClientsComponent},
     {path: 'manage/addCompany',component:CompanyFormComponent},
     {path: 'manage/Edit/:id',component:EditItemsComponent},
     {path: 'manage/view/:id',component:ItemsDetailsComponent},
@@ -45,7 +48,7 @@ export const routes: Routes = [
     {path: 'manage/allCompanies/view/:id',component:CompanyDetailsComponent},
     {path: 'manage/addType', component: TypeFormComponent},
     // {path: 'manage/addUnit',component:UnitsComponent},
-    {path: 'manage/addClient',component:ClientsComponent},
+    // {path: 'manage/addClient',component:ClientsComponent},
     {path: 'manage/addItem', component: AddItemsComponent},
     {path: 'manage/addInvoice', component: AddInvoiceComponent},
     {path: 'Login', component:LoginComponent},
@@ -57,6 +60,12 @@ export const routes: Routes = [
     {path: 'manage/allUnits', component:AllUnitsComponent }, //route of the unit page crud
     {path: 'manage/allUnits/editUnit/:id', component: UnitFormComponent }, // Route for editing unit
     {path: 'manage/allUnits/view/:id', component: UnitDetailsComponent }, //route for view details of units
+
+    {path: 'manage/allClients', component:AllClientsComponent },
+    {path: 'manage/allClients/view/:id', component: ClientDetailsComponent },
+    {path: 'manage/addClient', component: ClientFormComponent }, 
+    {path: 'manage/editClient/:id', component: ClientFormComponent },     
+
 
     {path: '**',component:NotFoundComponent}
 
