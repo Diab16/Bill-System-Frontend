@@ -32,7 +32,7 @@ export class ItemsServiceService {
 
  getById(id:number):Observable<any>
  {
-     return this.httpclint.get<Iitems>(`${this.apiurl}/GetById?id=${id}`)
+     return this.httpclint.get<Iitems>(`${this.apiurl}/GetById/${id}`)
  }
  getAmountById(id:number):Observable<any>
  {
@@ -50,7 +50,7 @@ editAmountByItemId( id:number , amount:number)
 
 deleteItem(id:number)
 {
-     return this.httpclint.delete(`${this.apiurl}?id=${id}`)
+     return this.httpclint.delete(`${this.apiurl}/${id}`)
 }
 
 
