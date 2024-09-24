@@ -4,16 +4,19 @@ import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/r
 import { CompanyService } from '../../../Services/company.service';
 import { ICompany } from '../../../Models/icompany';
 import { NONE_TYPE } from '@angular/compiler';
+import { SearchPipePipe } from '../../../search-pipe.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-all-companies',
   standalone: true,
-  imports: [CommonModule,RouterLink,RouterLinkActive],
+  imports: [CommonModule,RouterLink,RouterLinkActive,SearchPipePipe,FormsModule],
   templateUrl: './all-companies.component.html',
   styleUrl: './all-companies.component.css'
 })
 export class AllCompaniesComponent {
   companies : ICompany[]=[];
+  searchterm: string ='';
   constructor(private companyService : CompanyService , private router : Router, private activatedRoute : ActivatedRoute){}
   ngOnInit(): void {
     this.companyService.GetAllCompanies().subscribe({
@@ -41,11 +44,14 @@ export class AllCompaniesComponent {
     }
   }
   deleteCompany(companyId:any){
-    this.companyService.DeleteCompany(companyId).subscribe({
-      next:()=>{
-        this.companies = this.companies.filter(c => c.id != companyId);
-      }
-    });
+    if (confirm('Are you sure you want to delete this item?')) {
+      this.companyService.DeleteCompany(companyId).subscribe({
+        next:()=>{
+          this.companies = this.companies.filter(c => c.id != companyId);
+        }
+      });
+    }
+    
     
   }
 }

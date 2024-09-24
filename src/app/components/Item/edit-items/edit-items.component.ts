@@ -1,8 +1,8 @@
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ItemsServiceService } from './../../Services/items-service.service';
+import { ItemsServiceService } from '../../../Services/items-service.service';
 import { Component, OnInit } from '@angular/core';
-import { IFormdata } from '../../Interfaces/Iformdata';
-import { Iitems } from '../../Interfaces/Iitems';
+import { IFormdata } from '../../../Interfaces/Iformdata';
+import { Iitems } from '../../../Interfaces/Iitems';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, map, Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';

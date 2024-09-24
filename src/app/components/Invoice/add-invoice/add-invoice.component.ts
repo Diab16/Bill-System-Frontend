@@ -2,50 +2,49 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { CompanyService } from '../../Services/company.service';
+import { Router, RouterLink } from '@angular/router';
+import { ItemsServiceService } from '../../../Services/items-service.service';
+import { Iitems } from '../../../Interfaces/Iitems';
+import { IInvoiceItem } from '../../../Interfaces/iInvoiceItem';
+import { InvoiceService } from '../../../Services/invoice.service';
+import { IInvoice } from '../../../Interfaces/iInvoice';
 
 @Component({
-  selector: 'app-invoices',
+  selector: 'app-add-invoice',
   standalone: true,
   imports: [CommonModule , ReactiveFormsModule ,RouterLink,NgIf,NgFor],
-  templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.css']
+  templateUrl: './add-invoice.component.html',
+  styleUrl: './add-invoice.component.css'
 })
-export class InvoicesComponent implements OnInit {
+export class AddInvoiceComponent {
   clients = [
     { id: 1, name: 'Client 1' },
     { id: 2, name: 'Client 2' }
   ];
-  allItems = [
-    { id: 1, name: 'Item 1', sellingPrice: 100, unit: 'Unit 1' },
-    { id: 2, name: 'Item 2', sellingPrice: 200, unit: 'Unit 2' },
-    { id: 3, name: 'Item 3', sellingPrice: 300, unit: 'Unit 3' }
-  ];
-  items = [// for select only
-    { id: 1, name: 'Item 1', sellingPrice: 100, unit: 'Unit 1' },
-    { id: 2, name: 'Item 2', sellingPrice: 200, unit: 'Unit 2' },
-    { id: 3, name: 'Item 3', sellingPrice: 300, unit: 'Unit 3' }
-  ];
-  addedItems: any[] = [];
+  allItems :Iitems[] = [];
+  items :Iitems[] =[]; // for select only
+  invoiceData:any;
+  tableItems:any[] = [];
+  addedItems: IInvoiceItem[] = [];
   totalValue: number = 0;
+  randomNum:number = 0;
 
   AddItemDetailsForm:FormGroup = new FormGroup({
-    itemName:new FormControl("", [ Validators.required]),
-    sellingPrice:new FormControl(null, [ Validators.required]),
+    itemId:new FormControl("", [ Validators.required]),
+    sellingPrice:new FormControl(null, [ Validators.required ,Validators.min(0)]),
     quantity:new FormControl(null, [ Validators.required,Validators.min(1)]),
     totalValue:new FormControl(null)
   });
   AddInvoiceDetailsForm:FormGroup = new FormGroup({
-    billsTotal: new FormControl(null),
+    billTotal: new FormControl(null),
     percentageDiscount:new FormControl(null , [ Validators.required , Validators.min(0), Validators.max(100)] ),
-    valueDiscount:new FormControl(null),
-    net:new FormControl(null),
+    valueDiscount:new FormControl({value:null,disabled:true}),
+    net:new FormControl({value:null,disabled:true}),
     paidUp:new FormControl(null,[Validators.required]),
-    rest:new FormControl(null),
-    billDate:new FormControl(null, [ Validators.required]),
-    billNumber:new FormControl(this.generateBillNumber()),
-    clientName:new FormControl("", [ Validators.required])
+    rest:new FormControl({value:null,disabled:true}),
+    date:new FormControl(null, [ Validators.required]),
+    billNumber:new FormControl(this.randomNum),
+    clientId:new FormControl("", [ Validators.required])
     
   },{validators:[this.PriceValidation()]});
   //price custom  validators
@@ -64,8 +63,8 @@ export class InvoicesComponent implements OnInit {
   }
 
   // Get Properties
-  get getbillsTotal(){
-    return this.AddInvoiceDetailsForm.controls["billsTotal"];
+  get getbillTotal(){
+    return this.AddInvoiceDetailsForm.controls["billTotal"];
   }
   get getpercentageDiscount(){
     return this.AddInvoiceDetailsForm.controls["percentageDiscount"];
@@ -83,15 +82,44 @@ export class InvoicesComponent implements OnInit {
     return this.AddInvoiceDetailsForm.controls["rest"];
   }
 
-  constructor(private companyService:CompanyService) {}
+  constructor(private itemService:ItemsServiceService ,private invoiceService :InvoiceService , private router:Router) {
+    
+  }
 
+  allInvoices:IInvoice[]=[];
   ngOnInit(): void {
     this.AddInvoiceDetailsForm.get('quantity')?.valueChanges.subscribe(() => this.calculateTotalValue());
     this.AddInvoiceDetailsForm.get('sellingPrice')?.valueChanges.subscribe(() => this.calculateTotalValue());
+    this.itemService.getAllItems().subscribe({
+      next: (response)=>{
+        this.allItems = response;
+        this.items = response;
+      }
+    });
+    this.invoiceService.GetAllInvoices().subscribe({
+      next:(response)=>{
+        this.allInvoices = response;
+        this.randomNum = this.generateBillNumber(this.allInvoices);
+        this.AddInvoiceDetailsForm.get('billNumber')?.setValue(this.randomNum);        
+        
+      }
+    })
   }
 
-  generateBillNumber(): number {
-    return Math.floor(1000 + Math.random() * 9000); 
+  generateBillNumber(arr:any[]): number {  
+    var flag = false;
+    var rand= 0;
+    while (!flag) {
+      rand =Math.floor( Math.random() * 9999);
+      flag=true;
+      for (var inv of arr) {
+        if(inv.billNumber == rand){
+          flag=false;
+          break;
+        }
+      }
+    }
+    return rand; 
   }
 
   onItemSelect(event: any): void {
@@ -112,41 +140,45 @@ export class InvoicesComponent implements OnInit {
 
   addItem(): void {
     if (this.AddItemDetailsForm.valid) {
-      const selectedItem = this.items.find(item => item.id === +this.AddItemDetailsForm.get('itemName')?.value);
+      const selectedItem = this.items.find(item => item.id === +this.AddItemDetailsForm.get('itemId')?.value);
       const addedItem = {
         code: selectedItem?.id,
         name: selectedItem?.name,
-        unit: selectedItem?.unit,
+        unit: selectedItem?.unit.name,
         quantity: this.AddItemDetailsForm.get('quantity')?.value,
         sellingPrice: this.AddItemDetailsForm.get('sellingPrice')?.value,
         totalBalance: this.totalValue
       };
-
-      this.addedItems.push(addedItem);
+      this.tableItems.push(addedItem);
+      this.addedItems.push({...this.AddItemDetailsForm.value});
       this.items = this.items.filter(item => item.id != selectedItem?.id);
-      this.AddInvoiceDetailsForm.get('billsTotal')?.setValue(Number(this.AddInvoiceDetailsForm.get('billsTotal')?.value) + Number(this.totalValue));
+      this.AddInvoiceDetailsForm.get('billTotal')?.setValue(Number(this.AddInvoiceDetailsForm.get('billTotal')?.value) + Number(this.totalValue));
       this.totalValue = 0;
       this.AddItemDetailsForm.reset();
-      this.AddItemDetailsForm.get('itemName')?.reset('');
+      this.AddItemDetailsForm.get('itemId')?.reset('');
     }
   }
   deleteRow(itemCode:number){
-    var deletedItem = this.addedItems.find(item => item.code == itemCode);
-    this.addedItems = this.addedItems.filter(item => item.code != itemCode);
+    
+    var deletedItem = this.addedItems.find(item => item.itemId == itemCode);
+
+
+    this.addedItems = this.addedItems.filter(item => item.itemId != itemCode);
+
+    
+    this.tableItems = this.tableItems.filter(item => item.code != itemCode);
+
+
     const selectedItem = this.allItems.find(item => item.id == itemCode);
     if(selectedItem){
       this.items.push(selectedItem);
       this.items.sort((a,b)=> a.id-b.id);
-      this.AddInvoiceDetailsForm.get('billsTotal')?.setValue(Number(this.AddInvoiceDetailsForm.get('billsTotal')?.value) - Number(deletedItem.totalBalance));
+      
+      
+      this.getbillTotal.setValue(Number(this.AddInvoiceDetailsForm.get('billTotal')?.value) - Number(deletedItem?.totalValue));
     }
    
 
-  }
-
-  onSubmit(): void {
-    if (this.AddInvoiceDetailsForm.valid) {
-      console.log('Form Submitted', this.AddInvoiceDetailsForm.value);
-    }
   }
   isLoading:boolean=false;
 
@@ -154,7 +186,7 @@ export class InvoicesComponent implements OnInit {
    
   onBillTotalOrDiscountChange(): void {
     const disc = this.getpercentageDiscount.value;
-    const total = this.getbillsTotal.value;
+    const total = this.getbillTotal.value;
     if(total >= 0 && disc >= 0 && disc <= 100){
       this.getvalueDiscount.setValue(Number(disc) * Number(total)*0.01);
       this.getNet.setValue(Number(total)-Number(this.getvalueDiscount.value))
@@ -182,12 +214,22 @@ export class InvoicesComponent implements OnInit {
    this.isLoading=true; 
    if (Form.valid)
   {
-    console.log(Form.value);
+    this.invoiceData = {...this.AddInvoiceDetailsForm.value ,invoiceItems: this.addedItems};
+    this.invoiceService.AddInvoice(this.invoiceData).subscribe({
+      next:()=>{
+        this.router.navigate(['/manage/Invoices'])
+        
+      },
+      error:()=>{
+        console.log("error");
+        
+      }
+    })
     this.isLoading=false; 
     this.AddInvoiceDetailsForm.reset();
     this.AddItemDetailsForm.reset();
-    this.AddItemDetailsForm.get('itemName')?.reset('');
-    this.AddInvoiceDetailsForm.get('clientName')?.reset('');
+    this.AddItemDetailsForm.get('itemId')?.reset('');
+    this.AddInvoiceDetailsForm.get('clientId')?.reset('');
     this.addedItems =[];
     this.items = this.allItems;
 

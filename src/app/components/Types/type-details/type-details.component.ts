@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TypeService } from '../../Services/type.service';
+import { TypeService } from '../../../Services/type.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { IType } from '../../Models/iType';
+import { IType } from '../../../Models/iType';
 
 @Component({
   selector: 'app-type-details',

@@ -14,17 +14,36 @@ export class CompanyDetailsComponent implements OnInit {
   id:any;
   company:any;
 
-  constructor(private activatedRoute : ActivatedRoute , private companyService : CompanyService) 
+  constructor(private activatedRoute : ActivatedRoute , private Service : CompanyService) 
   {   
   }
   ngOnInit(): void {
-    this.id = Number(this.activatedRoute.snapshot.url[3]);
-    this.companyService.GetCompanyById(this.id).subscribe({
-      next:(response)=>{
-        this.company = response;
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.Service.GetCompanyById(this.id).subscribe({
+      next:(resp)=>{
+        this.company = resp;
       }
     })
   }
+
+  hoverIn(){
+    var btn1 = document.getElementById("btn1");
+    var btn2 = document.getElementById("btn2");
+    if(btn1 && btn2){
+      btn1.style.display ="none";
+      btn2.style.display ="block";
+    }
+  }
+  hoverOut(){
+    var btn1 = document.getElementById("btn1");
+    var btn2 = document.getElementById("btn2");
+    if(btn1 && btn2){
+      btn1.style.display ="block";
+      btn2.style.display ="none";
+    }
+  }
+
+
 
 
 }
