@@ -15,6 +15,7 @@
           <i class="fa fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
         </div>
         <div *ngIf="EditItemsForm.get('companyId')?.errors && EditItemsForm.get('companyId')?.touched" class="alert alert-danger mt-1 py-2">
+
           <span *ngIf="EditItemsForm.get('companyId')?.hasError('required')">Company Name is required</span>
         </div>
       </div>
@@ -28,6 +29,7 @@
           </select>
           <i class="fa fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
         </div>
+
         <div *ngIf="EditItemsForm.get('typeId')?.errors && EditItemsForm.get('typeId')?.touched" class="alert alert-danger mt-1 py-2">
           <span *ngIf="EditItemsForm.get('typeId')?.hasError('required') && !EditItemsForm.hasError('chooseCompanyFirst')">Type Name is required</span>
           <span *ngIf="EditItemsForm.hasError('chooseCompanyFirst')">Choose Company Name First!</span>
@@ -62,6 +64,7 @@
           </select>
           <i class="fa fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
         </div>
+
         <div *ngIf="EditItemsForm.get('unitId')?.errors && EditItemsForm.get('unitId')?.touched" class=" alert alert-danger mt-1 py-2">
           <span *ngIf="EditItemsForm.get('unitId')?.hasError('required')">unit  is required</span>
         </div>
@@ -74,6 +77,7 @@
           <span *ngIf="EditItemsForm.get('sellingPrice')?.hasError('required')">Selling Price is required</span>
           <span *ngIf="EditItemsForm.get('sellingPrice')?.hasError('min')">Price must be greater than or equal to zero</span>
         </div>
+
       </div>
 
 
