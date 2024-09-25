@@ -10,7 +10,8 @@ import { IInvoice } from '../Interfaces/iInvoice';
 export class InvoiceService {
 
   baseUrl: string = "https://localhost:7200/api/SalesInvoice";
-  
+ // baseUrl: string = "https://localhost:44301/api/SalesInvoice";
+
     constructor(private http: HttpClient) { }
   
     GetAllInvoices(): Observable<IInvoice[]> {

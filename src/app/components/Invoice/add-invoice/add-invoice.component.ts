@@ -250,7 +250,7 @@ export class AddInvoiceComponent implements OnInit {
       console.log(item);
       this.itemService.editAmountByItemId(item.itemId,item.newQuantity).subscribe();
     }
-    this.isLoading=true; 
+    this.isLoading=true;     
     if (Form.valid)
     { 
       this.invoiceData = {...this.AddInvoiceDetailsForm.value ,invoiceItems: this.addedItems};
