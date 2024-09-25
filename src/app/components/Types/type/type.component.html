@@ -38,13 +38,34 @@
 
   <!-- Table -->
   <div class="table-responsive p-5">
-    <table class="table table-striped text-center align-middle" style="border-radius: 20px; overflow: hidden; background-color: #0C0D51;">
+    <table class="sortable searchable table table-striped text-center align-middle" style="border-radius: 20px; overflow: hidden; background-color: #0C0D51;">
       <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Type Name</th>
-          <th scope="col">Company Name</th>
-          <th scope="col">Notes</th>
+          <th scope="col">
+            <i *ngIf="sortFlag && sortArrow == 0" class="fa-solid fa-arrow-down"></i>
+            <i *ngIf="!sortFlag && sortArrow == 0" class="fa-solid fa-arrow-up"></i>
+            ID
+            <a (click)="SortById()" class="p-1">
+              <i class="sort fa-solid fa-sort"></i>            
+            </a>
+          </th>
+          <th scope="col">
+            <i *ngIf="sortFlag && sortArrow == 1" class="fa-solid fa-arrow-down"></i>
+            <i *ngIf="!sortFlag && sortArrow == 1" class="fa-solid fa-arrow-up"></i>
+            Type Name
+            <a (click)="SortByName()" class="p-1">
+              <i class="sort fa-solid fa-sort"></i>            
+            </a>
+          </th>
+          <th scope="col">
+            <i *ngIf="sortFlag && sortArrow == 2" class="fa-solid fa-arrow-down"></i>
+            <i *ngIf="!sortFlag && sortArrow == 2" class="fa-solid fa-arrow-up"></i>
+            Company Name
+            <a (click)="SortByCompany()" class="p-1">
+              <i class="sort fa-solid fa-sort"></i>            
+            </a>
+          </th>
+          <!-- <th scope="col">Notes</th> -->
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -52,12 +73,12 @@
         <tr *ngFor="let type of filteredTypes()" class="align-middle">
           <td>{{ type.typeId }}</td>
           <td>
-            <span class="badge alert alert-success py-2 mt-3 mb-2">
+            <span class="badge alert alert-success py-2 mt-2 mb-1">
               {{ type.typeName }}
             </span>
           </td>
           <td class="type-name">{{ type.companyName }}</td>
-          <td class="notes">{{ type.typeNotes || "N/A" }}</td>
+          <!-- <td class="notes">{{ type.typeNotes || "N/A" }}</td> -->
           <td class="actions">
             <button [routerLink]="['/manage/Type', type.typeId]" class="btn btn-sm me-3 btn-outline-success shadow-sm" style="border-radius: 29px;">
               <i class="fa fa-eye"></i>
@@ -76,10 +97,16 @@
 </section>
 
 <!-- Success Popup Message -->
-<div
-  [ngClass]="{ 'popup-message': true, show: showPopup }"
-  class="popup-message"
->
-  <span class="checkmark">&#10003;</span>
-  <p>{{ successMessage }}</p>
-</div>
+     
+    
+@if (successMessage?.endsWith("Successfully!")) {
+  <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message bg-warning">
+    <span class="checkmark">&#10003;</span>
+    <p>{{ successMessage }}</p>
+  </div>
+}@else {
+  <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message bg-danger">
+    <span class="checkmark bg-danger">&#10005;</span>
+    <p>{{ successMessage }}</p>
+  </div>
+}
