@@ -9,7 +9,7 @@ import { IFormdata } from '../Interfaces/Iformdata';
 export class ItemsServiceService {
 
   constructor(public httpclint:HttpClient) { }
-  //apiurl = "https://localhost:44301/api/Items"
+ // apiurl = "https://localhost:44301/api/Items"
  apiurl =  "https://localhost:7200/api/Items"  
 
 
@@ -32,17 +32,25 @@ export class ItemsServiceService {
 
  getById(id:number):Observable<any>
  {
-     return this.httpclint.get<Iitems>(`${this.apiurl}/GetById?id=${id}`)
+     return this.httpclint.get<Iitems>(`${this.apiurl}/GetById/${id}`)
+ }
+ getAmountById(id:number):Observable<any>
+ {
+     return this.httpclint.get<number>(`${this.apiurl}/GetAmountById/${id}`)
  }
 
 editItem(item:Iitems)
 {
      return this.httpclint.put<Iitems>(`${this.apiurl}` , item)
 }
+editAmountByItemId( id:number , amount:number)
+{
+     return this.httpclint.put(`${this.apiurl}/${id}/${amount}`,null)
+}
 
 deleteItem(id:number)
 {
-     return this.httpclint.delete(`${this.apiurl}?id=${id}`)
+     return this.httpclint.delete(`${this.apiurl}/${id}`)
 }
 
 

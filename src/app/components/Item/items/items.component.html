@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="table-responsive  p-5">
+  <div class="table-responsive ">
     <table class="table table-striped text-center align-middle" style="border-radius: 20px; overflow: hidden; background-color: #0C0D51;">
       <thead>
         <tr>
@@ -46,7 +46,7 @@
       <tbody>
         <tr *ngFor="let item of itemms | searchPipe:searchterm" class="align-middle" style="transition: background-color;">
           <td>
-            <span class="badge alert alert-success py-2 ">
+            <span class="badge alert alert-success py-2 mt-2 mb-1 ">
               {{ item.name }}
           </span>
            </td>

@@ -1,5 +1,5 @@
 <section  class="container  bg-light shadow p-5 rounded-5 mt-4" style="border-radius: 15px;">
-  <div class="mb-4" >
+  <div *ngIf="url == 'manage'" class="mb-4" >
     <div class="m-0 p-0 backButton">
       <a id="btn1" (mouseenter)="hoverIn()" class=" btn btn-outline-primary btn-back mt-3 fs-5 rounded-pill" routerLink="/manage"><i class="fas fa-arrow-left"></i></a>
   </div>
@@ -23,7 +23,7 @@
           style="width: 100%; max-width: 300px; border-radius: 25px; border: 2px solid #0C0D51;">
       </form>
 
-      <button routerLink="/manage/addInvoice" class="btn btn-primary shadow-sm px-4" style="background-color: #0C0D51; border-radius: 25px;">
+      <button routerLink="addInvoice" class="btn btn-primary shadow-sm px-4" style="background-color: #0C0D51; border-radius: 25px;">
         <i class="fa fa-plus me-2"></i> Add New Invoice
       </button>
     </div>
@@ -47,7 +47,7 @@
       <tbody>
         <tr *ngFor="let invoice of invoices | searchBillNum:searchterm" class="align-middle" style="transition: background-color;">
           <td>
-            <span class="badge alert alert-success py-2 my-3 ">
+            <span class="badge alert alert-success py-2 mt-2 mb-1 ">
               {{ invoice.billNumber }}
           </span>
           </td>
@@ -59,11 +59,8 @@
           <td>{{ invoice.paidUp | currency}}</td>
           <!-- <td>{{ invoice.paidUp -  (invoice.billTotal-invoice.percentageDiscount*0.01*invoice.billTotal) | currency}}</td> -->
           <td>
-            <button [routerLink]="['/manage/view', invoice.id]" class="btn btn-sm  me-3 btn-outline-success shadow-sm" style="border-radius: 29px;">
+            <button [routerLink]="['viewInvoice', invoice.id]" class="btn btn-sm  me-3 btn-outline-success shadow-sm" style="border-radius: 29px;">
               <i class="fa fa-eye"></i>
-            </button>
-            <button [routerLink]="['/manage/Edit', invoice.id]" class="btn btn-sm  me-3 btn-outline-warning shadow-sm" style="border-radius: 29px;">
-              <i class="fa fa-edit"></i>
             </button>
             <button (click)="Delete(invoice.id)" class="btn btn-sm btn-outline-danger me-3 shadow-sm" style="border-radius: 29px;">
               <i class="fa fa-trash"></i>
@@ -76,4 +73,18 @@
     </table>
   </div>
 
+  <!-- Success Popup Message -->
+     
+    
+  @if (successMessage?.endsWith("Successfully!")) {
+    <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message bg-warning">
+      <span class="checkmark">&#10003;</span>
+      <p>{{ successMessage }}</p>
+    </div>
+  }@else {
+    <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message bg-danger">
+      <span class="checkmark bg-danger">&#10005;</span>
+      <p>{{ successMessage }}</p>
+    </div>
+  }
 </section>

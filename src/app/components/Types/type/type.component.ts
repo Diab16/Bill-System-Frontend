@@ -15,8 +15,9 @@ import { FormsModule } from '@angular/forms';
 export class TypeComponent implements OnInit {
   Types: IType[] = [];
   searchterm: string = '';
-  successMessage: string = '';
-  showPopup: boolean = false;
+  successMessage: string | null = null; // For storing success message
+  sortFlag:boolean = true;
+  sortArrow:number= 0;
 
   constructor(public TypeServ: TypeService, private cdr: ChangeDetectorRef) {}
 
@@ -26,13 +27,78 @@ export class TypeComponent implements OnInit {
     });
   }
 
+  SortByCompany(){
+    this.sortFlag = !this.sortFlag;
+    if (this.sortFlag) {
+      this.Types.sort((a,b)=>{
+        if (a.companyName.toLowerCase() > b.companyName.toLowerCase()) {
+          return 1;
+        }else if(a.companyName.toLowerCase() < b.companyName.toLowerCase()) {
+          return -1;
+        }else{
+          return 0;
+        }
+      });
+    } else {
+      this.Types.sort((a,b)=>{
+        if (a.companyName.toLowerCase() > b.companyName.toLowerCase()) {
+          return -1;
+        }else if(a.companyName.toLowerCase() < b.companyName.toLowerCase()) {
+          return 1;
+        }else{
+          return 0;
+        }
+      });
+    }
+    this.sortArrow = 2;
+  }
+  SortByName(){
+    this.sortFlag = !this.sortFlag;
+    if (this.sortFlag) {
+      this.Types.sort((a,b)=>{
+        if (a.typeName.toLowerCase() > b.typeName.toLowerCase()) {
+          return 1;
+        }else if(a.typeName.toLowerCase() < b.typeName.toLowerCase()) {
+          return -1;
+        }else{
+          return 0;
+        }
+      });
+    } else {
+      this.Types.sort((a,b)=>{
+        if (a.typeName.toLowerCase() > b.typeName.toLowerCase()) {
+          return -1;
+        }else if(a.typeName.toLowerCase() < b.typeName.toLowerCase()) {
+          return 1;
+        }else{
+          return 0;
+        }
+      });
+    }
+    this.sortArrow = 1;
+  }
+  SortById(){
+    this.sortFlag = !this.sortFlag;
+    if (this.sortFlag) {
+      this.Types.sort((a,b)=>a.typeId - b.typeId);
+    } else {
+      this.Types.sort((a,b)=>b.typeId - a.typeId);
+    }
+    this.sortArrow=0;
+  }
   deleteHandler(typeId: any) {
-    this.TypeServ.DeleteType(typeId).subscribe({
-      next: () => {
-        this.Types = this.Types.filter((t) => t.typeId != typeId);
-        this.showPopupMessage('Type deleted successfully');
-      },
-    });
+    if (confirm('Are you sure you want to delete this Type?')) {
+      this.TypeServ.DeleteType(typeId).subscribe({
+        next: () => {
+          this.successMessage = 'Type deleted Successfully!';
+          setTimeout(() => {
+            this.successMessage=null;
+          }, 2000);
+          this.Types = this.Types.filter((t) => t.typeId != typeId);
+        },
+      });
+    }
+    
   }
 
   hoverIn() {
@@ -51,16 +117,6 @@ export class TypeComponent implements OnInit {
       btn1.style.display = 'block';
       btn2.style.display = 'none';
     }
-  }
-
-  showPopupMessage(message: string) {
-    this.successMessage = message;
-    this.showPopup = true;
-    this.cdr.detectChanges();
-    setTimeout(() => {
-      this.showPopup = false;
-      this.cdr.detectChanges();
-    }, 2000); // Hide after 2 seconds
   }
 
   filteredTypes(): IType[] {

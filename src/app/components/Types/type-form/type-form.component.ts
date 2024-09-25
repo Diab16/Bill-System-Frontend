@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IType } from '../../../Models/iType';
 import { TypeService } from '../../../Services/type.service';
 import { CompanyService } from '../../../Services/company.service';
 import { CommonModule } from '@angular/common';
+import { Observable, of, map, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-type-form',
@@ -15,12 +16,46 @@ import { CommonModule } from '@angular/common';
 })
 export class TypeFormComponent implements OnInit {
   typeId: number = 0;
-  TypeForm: FormGroup;
-  clicked: boolean = false;
   TypeArray: IType[] = [];
   companyArray: any[] = []; // Array to store the list of companies
-  unique: boolean = true;
   successMessage: string | null = null; // For storing success message
+  isLoading:boolean=false;
+
+  // Initialize the form group with default values
+  TypeForm = new FormGroup({
+    companyName: new FormControl('',{validators: [Validators.required]}),
+    name: new FormControl('', {validators:[Validators.required]}),
+    notes: new FormControl('')
+  },{validators:[this.chooseCompanyFirst()],asyncValidators:this.uniqueTypeNameValidator(),updateOn:'change'});
+  uniqueTypeNameValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {      
+      if (!control.value) {
+        return of(null); 
+      }
+
+      return this.typeService.GetTypeByCompanyName(this.getCompanyName.value).pipe(
+        map(types => {
+          this.TypeArray = types; 
+               
+          const typeNameExists = this.TypeArray.some(t => t.typeName.toUpperCase() === this.getName.value?.toUpperCase() && t.typeId != this.typeId);
+          
+          
+          return typeNameExists ? { uniqueTypeName: true } : null;
+        }),
+        catchError(() => of(null)) 
+      );
+    };
+  }
+  chooseCompanyFirst(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const compName = control.get('companyName')?.value;
+      if( compName == ''){
+        return {chooseCompanyFirst: true} ;
+      }
+      return null;
+    };
+  }
+
 
   constructor(
     private typeService: TypeService,
@@ -28,18 +63,14 @@ export class TypeFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    // Initialize the form group with default values
-    this.TypeForm = new FormGroup({
-      companyName: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required]),
-      notes: new FormControl('')
-    });
+    
   }
 
   ngOnInit(): void {
     // Initialize typeId from the route parameters
     this.typeId = Number(this.activatedRoute.snapshot.params['id']) || 0;
 
+    //this.TypeForm.get('companyName')?.valueChanges.subscribe(() => this.companyChange());
     if (this.typeId) {
       // Edit mode
       this.typeService.GetTypeById(this.typeId).subscribe({
@@ -55,21 +86,9 @@ export class TypeFormComponent implements OnInit {
         }
       });
     }
-
-    // Load all types and companies
-    this.loadTypes();
+    // Load all companies
+ 
     this.loadCompanies();
-  }
-
-  loadTypes() {
-    this.typeService.GetAllTypes().subscribe({
-      next: (response) => {
-        this.TypeArray = response;
-      },
-      error: (err) => {
-        console.error('Error fetching types:', err);
-      }
-    });
   }
 
   loadCompanies() {
@@ -98,35 +117,19 @@ export class TypeFormComponent implements OnInit {
   addType(e: Event) {
     e.preventDefault(); // Prevent default form submission behavior
 
+    this.isLoading = true;
     if (isNaN(this.typeId) || this.typeId == null) {
       this.typeId = 0; // Set to 0 if it wasn't properly initialized
     }
 
-    this.clicked = true; // Set state to indicate that a submission attempt has been made
-    this.unique = true; // Assume the type is unique initially
-
-    // Check if the type name is unique only if adding a new type
-    if (this.typeId === 0) {
-      this.unique = !this.TypeArray.some(type =>
-        this.getName.value?.toUpperCase() === type.typeName.toUpperCase()
-      );
-    }
-
-    // Log the form validity and type uniqueness
-    console.log('Form Status:', this.TypeForm.status);
-    console.log('Type Name Unique:', this.unique);
-
     // If the form is valid and the type name is unique
-    if (this.TypeForm.valid && this.unique) {
+    if (this.TypeForm.valid ) {
       const typeData: IType = {
         typeId: this.typeId, // Use the updated or existing typeId
         typeName: this.getName.value || '', // Ensure value is a string
         typeNotes: this.getNotes.value || '', // Ensure value is a string
         companyName: this.getCompanyName.value || '' // Ensure value is a string
       };
-
-      // Log the data being sent
-      console.log('Type Data:', typeData);
 
       if (this.typeId) {
         // Edit type
@@ -155,10 +158,10 @@ export class TypeFormComponent implements OnInit {
           }
         });
       }
-    } else {
-      // Log validation errors
-      console.log('Form errors:', this.TypeForm.errors);
-      console.log('Type Name Not Unique:', !this.unique);
     }
+    setTimeout(() => {
+      this.isLoading = false;    
+    }, 2000);
+    
   }
 }

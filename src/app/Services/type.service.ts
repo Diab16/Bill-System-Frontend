@@ -8,7 +8,7 @@ import { IType } from '../Models/iType';
 })
 export class TypeService {
   baseUrl: string = "https://localhost:7200/api/Type";
-//baseUrl: string = "https://localhost:44301/api/Type";
+  //baseUrl: string = "https://localhost:44301/api/Type";
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +20,10 @@ export class TypeService {
   }
   GetTypeById(typeId: any) {
   return this.http.get<IType>(`${this.baseUrl}/${typeId}`);
-}
+  }
+  GetTypeByCompanyName(companyName: any) {
+    return this.http.get<IType[]>(`${this.baseUrl}/GetTypesByCompanyName?companyName=${companyName}`);
+    }
   EditType(type: IType, typeId: any) {
     return this.http.put(`${this.baseUrl}/${typeId}`, type);
   }
