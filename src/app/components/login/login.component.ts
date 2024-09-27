@@ -16,6 +16,12 @@ export class LoginComponent {
   constructor(private _auth:ItemsServiceService , private _router:Router){}
   isLoading:boolean=false;
   ApiError:string='';
+  header:any;
+  payload:any;
+  encodedHeader:any;
+  encodedPayload:any;
+  signature:any;
+  jwt:any
 
   loginForm:FormGroup = new FormGroup({
     email:new FormControl (null,[Validators.required,Validators.email]),
@@ -23,40 +29,34 @@ export class LoginComponent {
     })
     
     
-    handeLogin(loginForm:FormGroup)
-    {
-      this.isLoading=true; 
-       if (loginForm.valid)
-      {
+    handeLogin(loginForm: FormGroup) {
+      this.isLoading = true;
     
-         this. _auth.getAllItems().subscribe({
-          next:(responce)=>{
-            console.log(loginForm.value);
-            
-            // navigate here
-            console.log(responce);
-            if (responce) {
-              // localStorage.setItem("usertoken",responce);
-              // this._auth.decodeUserData();
-              //  this.isLoading=false;
-               this._router.navigate(['/Home'])
-              
-              
-            }
-          },
+      if (loginForm.valid) {
+        // Creating a mock JWT-like structure with Base64 encoding
+        this.header = { alg: "HS256", typ: "JWT" };
+         this.payload = loginForm.value;
     
-          error:(err)=>
-          {
-            this.isLoading=false;
-            this.ApiError= err.error.message;
-            ;
-            console.log(this.ApiError);
-            
-            
-            
-          }
-          
-         })
-       }    
+        this.encodedHeader = btoa(JSON.stringify(this.header));
+        this.encodedPayload = btoa(JSON.stringify(this.payload));
+        
+        // This is not a real signature, but for demonstration purposes
+        this.signature = btoa("dummy_signature");
+    
+        this.jwt = `${this.encodedHeader}.${this.encodedPayload}.${this.signature}`;
+    
+        // Storing the mock JWT in local storage
+        localStorage.setItem("userToken", this.jwt);
+    
+        // Simulating a successful login and navigating to the home page
+        this.isLoading = false;
+        this._router.navigate(['/Home']).then(() => {
+           window.location.reload()});
+      } else {
+        this.isLoading = false;
+        console.log("Form is not valid");
+      }
     }
+    
+    
 }

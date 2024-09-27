@@ -22,41 +22,42 @@ import { LoginComponent } from './components/login/login.component';
 import { AddInvoiceComponent } from './components/Invoice/add-invoice/add-invoice.component';
 import { InvoiceDetailsComponent } from './components/Invoice/invoice-details/invoice-details.component';
 import { EditInvoiceComponent } from './components/Invoice/edit-invoice/edit-invoice.component';
+import { authGuard } from './auth.guard';
 
 
 export const routes: Routes = [
     {path: '', redirectTo:'Home',pathMatch:'full'},
-    {path: 'Home',component:HomeComponent},
-    {path: 'manage',component:ManageComponent},
-    {path: 'reports',component:ReportsComponent},
+    {path: 'Home',canActivate:[authGuard] ,component:HomeComponent},
+    {path: 'manage', canActivate:[authGuard],component:ManageComponent},
+    {path: 'reports',canActivate:[authGuard],component:ReportsComponent},
 
     {path: 'units',component:UnitsComponent},
     {path: 'clients',component:ClientsComponent},
 
-    {path: 'manage/Items',component:ItemsComponent},
-    {path: 'manage/addItem', component: AddItemsComponent},
-    {path: 'manage/Edit/:id',component:EditItemsComponent},
-    {path: 'manage/view/:id',component:ItemsDetailsComponent},
+    {path: 'manage/Items',canActivate:[authGuard],component:ItemsComponent},
+    {path: 'manage/addItem', canActivate:[authGuard], component: AddItemsComponent},
+    {path: 'manage/Edit/:id',canActivate:[authGuard] ,component:EditItemsComponent},
+    {path: 'manage/view/:id',canActivate:[authGuard],component:ItemsDetailsComponent},
 
-    {path: 'manage/Invoices',component:InvoicesComponent},
-    {path: 'invoice',component:InvoicesComponent},
-    {path: 'manage/Invoices/viewInvoice/:id',component:InvoiceDetailsComponent},
-    {path: 'invoice/viewInvoice/:id',component:InvoiceDetailsComponent},
-    {path: 'manage/Invoices/addInvoice', component: AddInvoiceComponent},
-    {path: 'invoice/addInvoice', component: AddInvoiceComponent},
+    {path: 'manage/Invoices',canActivate:[authGuard],component:InvoicesComponent},
+    {path: 'invoice',canActivate:[authGuard],component:InvoicesComponent},
+    {path: 'manage/Invoices/viewInvoice/:id',canActivate:[authGuard],component:InvoiceDetailsComponent},
+    {path: 'invoice/viewInvoice/:id',canActivate:[authGuard],component:InvoiceDetailsComponent},
+    {path: 'manage/Invoices/addInvoice',canActivate:[authGuard] ,component: AddInvoiceComponent},
+    {path: 'invoice/addInvoice',canActivate:[authGuard] ,component: AddInvoiceComponent},
 
-    {path: 'manage/allCompanies', component: AllCompaniesComponent},
-    {path: 'manage/allCompanies/addCompany/:id',component:CompanyFormComponent},
-    {path: 'manage/allCompanies/view/:id',component:CompanyDetailsComponent},
-    {path: 'manage/addCompany',component:CompanyFormComponent},
+    {path: 'manage/allCompanies',canActivate:[authGuard] ,component: AllCompaniesComponent},
+    {path: 'manage/allCompanies/addCompany/:id',canActivate:[authGuard],component:CompanyFormComponent},
+    {path: 'manage/allCompanies/view/:id',canActivate:[authGuard],component:CompanyDetailsComponent},
+    {path: 'manage/addCompany',canActivate:[authGuard],component:CompanyFormComponent},
 
-    {path: 'manage/addType', component: TypeFormComponent},
-    { path: 'manage/Type', component: TypeComponent },
-    { path: 'manage/Type/:id', component: TypeDetailsComponent },
-    { path: 'manage/editType/:id', component: TypeFormComponent },
+    {path: 'manage/addType',canActivate:[authGuard],component: TypeFormComponent},
+    { path: 'manage/Type',canActivate:[authGuard] ,component: TypeComponent },
+    { path: 'manage/Type/:id',canActivate:[authGuard] ,component: TypeDetailsComponent },
+    { path: 'manage/editType/:id', canActivate:[authGuard],component: TypeFormComponent },
 
-    {path: 'manage/addUnit',component:UnitsComponent},
-    {path: 'manage/addClient',component:ClientsComponent},
+    {path: 'manage/addUnit',canActivate:[authGuard],component:UnitsComponent},
+    {path: 'manage/addClient',canActivate:[authGuard],component:ClientsComponent},
 
     {path: 'Login', component:LoginComponent},
 
