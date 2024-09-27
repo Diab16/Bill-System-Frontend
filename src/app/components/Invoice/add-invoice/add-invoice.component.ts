@@ -97,7 +97,7 @@ export class AddInvoiceComponent implements OnInit {
         this.items = response.filter(i=>i.availableAmount != 0);
       }
     });
-    this.clientService.GetAllClients().subscribe({
+    this.clientService.getClients().subscribe({
       next:(response)=>{
         this.clients = response;
       }
