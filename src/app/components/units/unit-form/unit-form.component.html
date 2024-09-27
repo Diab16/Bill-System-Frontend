@@ -1,0 +1,45 @@
+<section class="mt-4">
+    <div class="bg-light rounded-5 p-5 m-auto shadow w-75">
+        <h2 class="p-2">
+            <i class="fa-solid fa-folder-plus" style="color: #0C0D51;"></i>
+            {{ id === null ? 'Add Unit' : 'Edit Unit' }}
+        </h2>
+
+        <div *ngIf="Message" class="alert" [ngClass]="{'success': Message.includes('Successfully'), 'error': Message.includes('Error')}">
+            {{ Message }}
+        </div>
+
+        <form (ngSubmit)="submitForm($event)" [formGroup]="unitForm">
+            <div class="mb-4">
+                <input name="name" formControlName="name" type="text" placeholder="Unit Name"
+                    class="form-control rounded-3 p-2 bg-dark-subtle">
+                <div *ngIf="unitForm.get('name')?.errors && unitForm.get('name')?.touched" class="alert alert-danger mt-1 py-2">
+                    <span *ngIf="unitForm.get('name')?.hasError('required')">Unit Name is required</span>
+                </div>
+                <div *ngIf="unitForm.errors?.['uniqueName']" class="alert alert-danger mt-1 py-2">
+                    <span>Unit Name Exists (Must Be Unique!)</span>
+                </div>
+            </div>
+
+            <div>
+                <textarea formControlName="notes" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Notes"></textarea>
+            </div>
+
+            <button *ngIf="id === null" [disabled]="unitForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
+                <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                <span *ngIf="!isLoading">Add</span>
+            </button>
+            <button *ngIf="id !== null" [disabled]="unitForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
+                <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                <span *ngIf="!isLoading">Edit</span>
+            </button>
+
+            <button routerLink="/manage/allUnits" type="button" class="btn rounded-4 text-light mx-2" style="background-color: #851214">Cancel</button>
+        </form>
+    </div>
+
+    <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message">
+        <span class="checkmark">&#10003;</span>
+        <p>{{ successMessage }}</p>
+    </div>
+</section>

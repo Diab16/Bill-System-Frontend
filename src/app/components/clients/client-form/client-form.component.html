@@ -1,0 +1,57 @@
+<section class="mt-4">
+    <div class="bg-light rounded-5 p-5 m-auto shadow w-75">
+        <h2 class="p-2">
+            <i class="fas fa-user" style="color: #0C0D51;"></i>
+            {{ id === 0 ? 'Add Client' : 'Edit Client' }}
+        </h2>
+
+        <div *ngIf="Message" class="alert" [ngClass]="{'success': Message.includes('Successfully'), 'error': Message.includes('Error')}">
+            {{ Message }}
+        </div>
+
+        <form [formGroup]="clientForm" (ngSubmit)="submitForm($event)">
+
+            <div class="mb-4">
+                <input name="name" formControlName="name" type="text" placeholder="Client Name"
+                    class="form-control rounded-3 p-2 bg-dark-subtle">
+                <div *ngIf="clientForm.get('name')?.errors && clientForm.get('name')?.touched" class="alert alert-danger mt-1 py-2">
+                    <span *ngIf="clientForm.get('name')?.hasError('required')">Client Name is required</span>
+                </div>
+                <div *ngIf="clientForm.errors?.['uniqueName']" class="alert alert-danger mt-1 py-2">
+                    <span>Client Name Exists (Must Be Unique !)</span>
+                </div>
+            </div>
+
+            <div>
+                <input formControlName="address" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Address">
+                <div *ngIf="clientForm.get('address')?.errors && clientForm.get('address')?.touched" class="alert alert-danger mt-1 py-2">
+                    <span *ngIf="clientForm.get('address')?.hasError('required')">Address is required</span>
+                </div>
+            </div>
+
+            <div>
+                <input formControlName="phone" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Phone">
+                <div *ngIf="clientForm.get('phone')?.errors && clientForm.get('phone')?.touched" class="alert alert-danger mt-1 py-2">
+                    <span *ngIf="clientForm.get('phone')?.hasError('required')">Phone is required</span>
+                    <span *ngIf="clientForm.get('phone')?.hasError('invalidPhone')">Phone must be exactly 11 digits</span>
+                </div>
+            </div>
+
+            <button *ngIf="id === 0" [disabled]="clientForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
+                <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                <span *ngIf="!isLoading">Add</span>
+            </button>
+            <button *ngIf="id !== 0" [disabled]="clientForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
+                <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                <span *ngIf="!isLoading">Edit</span>
+            </button>
+
+            <button routerLink="/manage/allClients" type="button" class="btn rounded-4 text-light mx-2" style="background-color: #851214">Cancel</button>
+        </form>
+
+        <div [ngClass]="{ 'popup-message': true, show: successMessage }" class="popup-message">
+            <span class="checkmark">&#10003;</span>
+            <p>{{ successMessage }}</p>
+        </div>
+    </div>
+</section>
