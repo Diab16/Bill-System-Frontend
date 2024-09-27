@@ -1,0 +1,69 @@
+<section class="container bg-light shadow p-5 rounded-5 mt-4" style="border-radius: 15px;">
+  <div class="mb-4">
+    <div class="m-0 p-0 backButton">
+      <a id="btn1" (mouseenter)="hoverIn()" class="btn btn-outline-primary btn-back mt-3 fs-5 rounded-pill" routerLink="/manage">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+    </div>
+    <div class="m-0 p-0 backButton">
+      <a id="btn2" (mouseleave)="hoverOut()" class="btn btn-outline-primary btn-back mt-3 fs-5 rounded-pill" routerLink="/manage">
+        <i class="fas fa-arrow-left"></i> Back to Manage
+      </a>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <h2 class="font-monospace fw-bold text-uppercase text-dark mb-3 mb-md-0">
+      <i class="fa-solid fa-user" style="color: #0C0D51;"></i> All Clients
+    </h2>
+
+    <div class="d-flex align-items-center flex-wrap">
+      <form class="me-md-3 mb-3 mb-md-0">
+        <input [(ngModel)]="searchterm" name="searchterm" type="text" class="form-control shadow-sm"
+          placeholder="Search clients..." style="width: 100%; max-width: 300px; border-radius: 25px; border: 2px solid #0C0D51;">
+      </form>
+
+      <button [routerLink]="['/manage/addClient']" class="btn btn-primary shadow-sm px-4" style="background-color: #0C0D51; border-radius: 25px;">
+        <i class="fa fa-plus me-2"></i> Add New Client
+      </button>
+    </div>
+  </div>
+
+  <div class="table-responsive p-5">
+    <table class="table table-striped text-center align-middle" style="border-radius: 20px; overflow: hidden; background-color: #0C0D51;">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Client Name</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Address</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients | searchPipe: searchterm" class="align-middle" style="transition: background-color;">
+          <td>{{ client.id }}</td>
+          <td>
+            <span class="badge alert alert-success py-2 my-2">
+              {{ client.name }}
+            </span>
+          </td>
+          <td>{{ client.phone }}</td>
+          <td>{{ client.address }}</td>
+          <td>
+            <button [routerLink]="['/manage/allClients/view', client.id]" class="btn btn-sm me-3 btn-outline-success shadow-sm" style="border-radius: 29px;">
+              <i class="fa fa-eye"></i>
+            </button>
+            <button [routerLink]="['/manage/editClient', client.id]" class="btn btn-sm me-3 btn-outline-warning shadow-sm" style="border-radius: 29px;">
+              <i class="fa fa-edit"></i>
+            </button>
+            
+            <button (click)="deleteClient(client.id)" class="btn btn-sm btn-outline-danger me-3 shadow-sm" style="border-radius: 29px;">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
