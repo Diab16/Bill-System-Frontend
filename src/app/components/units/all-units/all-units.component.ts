@@ -16,7 +16,7 @@ import { SearchPipePipe } from "../../../search-pipe.pipe";
 export class AllUnitsComponent {
   units: IUnit[] = [];
   searchterm: string = '';
-
+  successMessage : string|null = null;
   constructor(private unitService: UnitService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -49,7 +49,11 @@ export class AllUnitsComponent {
     if (confirm('Are you sure you want to delete this item?')) {
       this.unitService.deleteUnit(unitId).subscribe({
         next: () => {
-          this.units = this.units.filter(u => u.id !== unitId);
+          this.successMessage = "Unit Deleted Successfully";
+          setTimeout(()=>{
+            this.successMessage = null;   
+            this.units = this.units.filter(u => u.id !== unitId);       
+          },2000)
         }
       });
     }

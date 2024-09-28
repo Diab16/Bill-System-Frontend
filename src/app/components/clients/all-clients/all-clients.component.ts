@@ -16,7 +16,7 @@ import { SearchPipePipe } from "../../../search-pipe.pipe";
 export class AllClientsComponent {
   clients: IClient[] = [];  
   searchterm: string = '';
-
+  successMessage: string|null=null;
   constructor(private clientService: ClientService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -50,7 +50,11 @@ export class AllClientsComponent {
     if (confirm('Are you sure you want to delete this client?')) {
       this.clientService.deleteClient(clientId).subscribe({
         next: () => {
-          this.clients = this.clients.filter(c => c.id !== clientId);
+          this.successMessage = "Client Deleted Successfully";
+          setTimeout(()=>{
+            this.successMessage = null;    
+            this.clients = this.clients.filter(c => c.id !== clientId);      
+          },2000)
         }
       });
     }

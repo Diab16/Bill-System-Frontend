@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms'; 
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],  
+  imports: [ReactiveFormsModule, CommonModule,RouterLink],  
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css'
 })
@@ -42,9 +42,7 @@ export class ClientsComponent {
     }
   }
 
-  onCancel() {
-    this.router.navigate(['/']); 
-  }
+
   get clientName() {
     return this.clientForm.get('clientName');
   }

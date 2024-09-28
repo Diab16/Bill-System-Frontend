@@ -18,7 +18,7 @@ export class ItemsComponent implements OnInit {
   constructor(private service:ItemsServiceService , public router:Router ){}
   itemms: Iitems[] = [];
   searchterm: string ='';
-
+  successMessage : string| null = null;
   isLoading = false;
   message: string = '';
   ngOnInit(): void {
@@ -40,8 +40,10 @@ export class ItemsComponent implements OnInit {
       this.isLoading = true;
       this.service.deleteItem(id).subscribe({
         next: (response) => {
-          console.log(response);
-          this.message = 'Item deleted successfully';
+          this.successMessage = "Item Deleted Successfully";
+          setTimeout(()=>{
+            this.successMessage = null;          
+          },2000)
         },
         error: (error) => {
           console.error('Error deleting item:', error);

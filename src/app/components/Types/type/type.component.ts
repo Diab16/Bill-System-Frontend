@@ -93,8 +93,9 @@ export class TypeComponent implements OnInit {
           this.successMessage = 'Type deleted Successfully!';
           setTimeout(() => {
             this.successMessage=null;
+            this.Types = this.Types.filter((t) => t.typeId != typeId);
           }, 2000);
-          this.Types = this.Types.filter((t) => t.typeId != typeId);
+          
         },
       });
     }

@@ -2,7 +2,7 @@
     <div class="bg-light rounded-5 p-5 m-auto shadow w-75">
         <h2 class="p-2">
             <i class="fa-solid fa-folder-plus" style="color: #0C0D51;"></i>
-            {{ id === null ? 'Add Unit' : 'Edit Unit' }}
+            {{ id === 0 ? 'Add Unit' : 'Edit Unit' }}
         </h2>
 
         <div *ngIf="Message" class="alert" [ngClass]="{'success': Message.includes('Successfully'), 'error': Message.includes('Error')}">
@@ -25,11 +25,11 @@
                 <textarea formControlName="notes" class="form-control rounded-3 p-2 mb-4 bg-dark-subtle" placeholder="Notes"></textarea>
             </div>
 
-            <button *ngIf="id === null" [disabled]="unitForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
+            <button *ngIf="id === 0" [disabled]="unitForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
                 <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
                 <span *ngIf="!isLoading">Add</span>
             </button>
-            <button *ngIf="id !== null" [disabled]="unitForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
+            <button *ngIf="id !== 0" [disabled]="unitForm.invalid" class="btn text-light mx-2 rounded-4" style="background-color: #0C0D51;" type="submit">
                 <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
                 <span *ngIf="!isLoading">Edit</span>
             </button>
