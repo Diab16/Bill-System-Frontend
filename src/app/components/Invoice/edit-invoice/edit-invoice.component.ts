@@ -92,7 +92,7 @@ export class EditInvoiceComponent implements OnInit {
     this.AddInvoiceDetailsForm.get('quantity')?.valueChanges.subscribe(() => this.calculateTotalValue());
     this.AddInvoiceDetailsForm.get('sellingPrice')?.valueChanges.subscribe(() => this.calculateTotalValue());
 
-    this.clientService.GetAllClients().subscribe({
+    this.clientService.getClients().subscribe({
       next:(response)=>{
         this.clients = response;
       }

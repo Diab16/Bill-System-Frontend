@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 export class AllCompaniesComponent {
   companies : ICompany[]=[];
   searchterm: string ='';
+  successMessage:string|null=null;
   constructor(private companyService : CompanyService , private router : Router, private activatedRoute : ActivatedRoute){}
   ngOnInit(): void {
     this.companyService.GetAllCompanies().subscribe({
@@ -47,7 +48,11 @@ export class AllCompaniesComponent {
     if (confirm('Are you sure you want to delete this item?')) {
       this.companyService.DeleteCompany(companyId).subscribe({
         next:()=>{
-          this.companies = this.companies.filter(c => c.id != companyId);
+          this.successMessage = "Company Deleted Successfully";
+          setTimeout(()=>{
+            this.successMessage = null;          
+            this.companies = this.companies.filter(c => c.id != companyId);
+          },2000)
         }
       });
     }

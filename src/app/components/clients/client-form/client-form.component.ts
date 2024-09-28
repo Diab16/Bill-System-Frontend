@@ -80,9 +80,13 @@ export class ClientFormComponent implements OnInit {
     if (this.id === 0) {
       this.clientService.addClient(clientData).subscribe({
         next: () => {
-          this.successMessage = 'Client Successfully Added';
-          this.isLoading = false;
-          this.router.navigate(['/manage/allClients']);
+          this.successMessage = 'Client Added Successfully';
+          setTimeout(()=>{
+            this.successMessage = null;
+            this.isLoading = false;
+            this.router.navigate(['/manage/allClients']);
+          },2000);
+          
         },
         error: () => {
           this.Message = 'Error Occurred';
@@ -92,9 +96,12 @@ export class ClientFormComponent implements OnInit {
     } else {
       this.clientService.updateClient(this.id, clientData).subscribe({
         next: () => {
-          this.successMessage = 'Client Successfully Edited';
-          this.isLoading = false;
-          this.router.navigate(['/manage/allClients']);
+          this.successMessage = 'Client Edited Successfully';
+          setTimeout(()=>{
+            this.successMessage = null;
+            this.isLoading = false;
+            this.router.navigate(['/manage/allClients']);
+          },2000);
         },
         error: () => {
           this.Message = 'Error Occurred';

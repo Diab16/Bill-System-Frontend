@@ -67,3 +67,12 @@
     </table>
   </div>
 </section>
+<!-- Success Popup Message -->
+<div
+[ngClass]="{ 'popup-message': true, show: successMessage }"
+class="popup-message bg-warning"
+>
+<span class="checkmark">&#10003;</span>
+<!-- Checkmark for success -->
+<p>{{ successMessage }}</p>
+</div>
