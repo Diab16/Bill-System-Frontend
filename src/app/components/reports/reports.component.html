@@ -1,1 +1,146 @@
-<p>reports works!</p>
+<section
+  class="container bg-light shadow p-5 rounded-5 mt-4"
+  style="border-radius: 15px"
+>
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="startDate">Start Date</label>
+      <input
+        type="date"
+        id="startDate"
+        class="form-control shadow-sm rounded-3 p-2 bg-dark-subtle"
+        [(ngModel)]="theDateRange.first"
+        name="startDate"
+        required
+      />
+    </div>
+    <div>
+      <label for="endDate">End Date</label>
+      <input
+        type="date"
+        id="endDate"
+        class="form-control shadow-sm rounded-3 p-2 bg-dark-subtle"
+        [(ngModel)]="theDateRange.last"
+        name="endDate"
+        required
+      />
+    </div>
+    <div class="text-center">
+      <button
+        type="submit"
+        class="btn text-light m-2 rounded-pill align-items-center"
+        style="background-color: #0c0d51; width: 15%"
+      >
+        Show Report
+      </button>
+    </div>
+  </form>
+</section>
+
+<section
+  class="container bg-light shadow p-5 rounded-5 mt-4"
+  style="border-radius: 15px"
+>
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <h2 class="font-monospace fw-bold text-uppercase text-dark mb-3 mb-md-0">
+      <i class="fa-solid fa-box" style="color: #0c0d51"></i> Invoices Report
+    </h2>
+  </div>
+
+  <div class="table-responsive p-2">
+    <table
+      class="table table-striped text-center align-middle"
+      style="border-radius: 20px; overflow: hidden; background-color: #0c0d51"
+    >
+      <thead>
+        <tr>
+          <th scope="col">Bill Number</th>
+          <th scope="col">Date</th>
+          <th scope="col">Bill Total</th>
+          <th scope="col">Discount</th>
+          <th scope="col">Paid Up</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let invoice of invoices | searchBillNum : searchterm"
+          class="align-middle"
+          style="transition: background-color"
+        >
+          <td>
+            <span class="badge alert alert-success py-2 mt-2 mb-1">
+              {{ invoice.billNumber }}
+            </span>
+          </td>
+          <td>{{ invoice.date | date }}</td>
+          <td>{{ invoice.billTotal | currency }}</td>
+          <td class="text-danger">{{ invoice.percentageDiscount }}%</td>
+          <td>{{ invoice.paidUp | currency }}</td>
+          <td>
+            <button
+              [routerLink]="['../invoice/viewInvoice', invoice.id]"
+              class="btn btn-sm me-3 btn-outline-success shadow-sm"
+              style="border-radius: 29px"
+            >
+              <i class="fa fa-eye"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section
+  class="container bg-light shadow p-5 rounded-5 mt-4"
+  style="border-radius: 15px"
+>
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <h2 class="font-monospace fw-bold text-uppercase text-dark mb-3 mb-md-0">
+      <i class="fa-solid fa-box" style="color: #0c0d51"></i> Items Report
+    </h2>
+  </div>
+
+  <div class="table-responsive p-2">
+    <table
+      class="table table-striped text-center align-middle"
+      style="border-radius: 20px; overflow: hidden; background-color: #0c0d51"
+    >
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Available Amount</th>
+          <th scope="col">Buying Price</th>
+          <th scope="col">Selling Price</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of items"
+          class="align-middle"
+          style="transition: background-color"
+        >
+          <td>
+            <span class="badge alert alert-success py-2 mt-2 mb-1">
+              {{ item.itemName }}
+            </span>
+          </td>
+          <td>{{ item.itemAvailableAmount }}</td>
+          <td>{{ item.itemBuyingPrice | currency }}</td>
+          <td>{{ item.itemSellingPrice | currency }}</td>
+          <td>
+            <button
+              [routerLink]="['../manage/view', item.itemId]"
+              class="btn btn-sm me-3 btn-outline-success shadow-sm"
+              style="border-radius: 29px"
+            >
+              <i class="fa fa-eye"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
