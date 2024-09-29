@@ -23,21 +23,21 @@
 <form (ngSubmit)="handeLogin(loginForm)" [formGroup]="loginForm">
     <!-- Email Input -->
     <div class="form-floating mb-3">
-        <input formControlName="email" type="email" class="form-control bg-light" id="emailInput" placeholder="Email">
+        <input formControlName="Email" type="email" class="form-control bg-light" id="emailInput" placeholder="Email">
         <label for="emailInput">Email</label>
-        <div *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched" class="text-danger mt-1">
-            <p *ngIf="loginForm.get('email')?.getError('required')">Email is required</p>
-            <p *ngIf="loginForm.get('email')?.getError('email')">Invalid Email</p>
+        <div *ngIf="loginForm.get('Email')?.errors && loginForm.get('email')?.touched" class="text-danger mt-1">
+            <p *ngIf="loginForm.get('Email')?.getError('required')">Email is required</p>
+            <p *ngIf="loginForm.get('Email')?.getError('Email')">Invalid Email</p>
         </div>
     </div>
 
     <!-- Password Input -->
     <div class="form-floating mb-3">
-        <input formControlName="password" type="password" class="form-control bg-light" id="passwordInput" placeholder="Password">
+        <input formControlName="Password" type="password" class="form-control bg-light" id="passwordInput" placeholder="Password">
         <label for="passwordInput">Password</label>
-        <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched" class="text-danger mt-1">
-            <p *ngIf="loginForm.get('password')?.getError('required')">Password is required</p>
-            <p *ngIf="loginForm.get('password')?.getError('pattern')">
+        <div *ngIf="loginForm.get('Password')?.errors && loginForm.get('Password')?.touched" class="text-danger mt-1">
+            <p *ngIf="loginForm.get('Password')?.getError('required')">Password is required</p>
+            <p *ngIf="loginForm.get('Password')?.getError('pattern')">
                 Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number with no spaces.
             </p>
         </div>

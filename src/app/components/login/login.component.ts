@@ -4,6 +4,7 @@ import { ItemsComponent } from '../Item/items/items.component';
 import { ItemsServiceService } from '../../Services/items-service.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,49 +14,46 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private _auth:ItemsServiceService , private _router:Router){}
+  constructor(private _auth:AuthService , private _router:Router){}
   isLoading:boolean=false;
   ApiError:string='';
-  header:any;
-  payload:any;
-  encodedHeader:any;
-  encodedPayload:any;
-  signature:any;
-  jwt:any
 
   loginForm:FormGroup = new FormGroup({
-    email:new FormControl (null,[Validators.required,Validators.email]),
-    password:new FormControl (null,[Validators.required,Validators.pattern(/^[A-Z][a-z0-9]{5,10}$/)]),
+    Email:new FormControl (null,[Validators.required,Validators.email]),
+    Password:new FormControl (null,[Validators.required,Validators.pattern(/^[A-Z][a-z0-9@]{5,10}$/)]),
     })
     
     
-    handeLogin(loginForm: FormGroup) {
-      this.isLoading = true;
+    handeLogin(loginForm:FormGroup)
+    {
+
+      this.isLoading=true; 
+       if (loginForm.valid)
+      {
+         this. _auth.Login(loginForm.value).subscribe({
+          next:(responce)=>{
+            console.log(loginForm.value);
+            // navigate here
+            console.log(responce);
+              localStorage.setItem("usertoken",responce.token);
+              this._auth.decodeUserData();
+               this.isLoading=false;
+               this._router.navigate(['/Home'])
+               
+          },
     
-      if (loginForm.valid) {
-        // Creating a mock JWT-like structure with Base64 encoding
-        this.header = { alg: "HS256", typ: "JWT" };
-         this.payload = loginForm.value;
-    
-        this.encodedHeader = btoa(JSON.stringify(this.header));
-        this.encodedPayload = btoa(JSON.stringify(this.payload));
-        
-        // This is not a real signature, but for demonstration purposes
-        this.signature = btoa("dummy_signature");
-    
-        this.jwt = `${this.encodedHeader}.${this.encodedPayload}.${this.signature}`;
-    
-        // Storing the mock JWT in local storage
-        localStorage.setItem("userToken", this.jwt);
-    
-        // Simulating a successful login and navigating to the home page
-        this.isLoading = false;
-        this._router.navigate(['/Home']).then(() => {
-           window.location.reload()});
-      } else {
-        this.isLoading = false;
-        console.log("Form is not valid");
-      }
+          error:(err)=>
+          {
+            this.isLoading=false;
+            this.ApiError= err.error;
+            console.log(this.ApiError);
+            
+            
+            
+          }
+          
+         })
+       }    
     }
     
     
