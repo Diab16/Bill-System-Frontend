@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IInvoice } from '../Interfaces/iInvoice';
+import {IDateRange} from '../Interfaces/idate-range'
 
 
 @Injectable({
@@ -10,6 +11,7 @@ import { IInvoice } from '../Interfaces/iInvoice';
 export class InvoiceService {
 
   baseUrl: string = "https://localhost:7200/api/SalesInvoice";
+  reportUrl:string="https://localhost:7200/api/Reports"
  // baseUrl: string = "https://localhost:44301/api/SalesInvoice";
 
     constructor(private http: HttpClient) { }
@@ -28,5 +30,11 @@ export class InvoiceService {
     }
     DeleteInvoice(InvoiceId: any) {
       return this.http.delete(`${this.baseUrl}/${InvoiceId}`);
+    }
+    InvoiceReport(dateRange: IDateRange): Observable<any> {
+      return this.http.post(`${this.reportUrl}/invoice`,dateRange );
+    }
+    StorageReport():Observable<any>{
+      return this.http.get(`${this.reportUrl}/storage`)
     }
 }
