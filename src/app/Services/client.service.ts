@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IClient } from '../Models/iclient'; 
 
@@ -8,8 +8,15 @@ import { IClient } from '../Models/iclient';
   providedIn: 'root'
 })
 export class ClientService {
-  private apiUrl = 'https://localhost:7200/api/client'; 
+  //private apiUrl = 'https://localhost:7200/api/client'; 
+  private apiUrl = 'https://localhost:44301/api/client'; 
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('usertoken');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`  // Correct header format
+    });
+  }
   constructor(private http: HttpClient) { }
 
   getClients(): Observable<IClient[]> {
@@ -17,7 +24,7 @@ export class ClientService {
   }
 
   getClient(id: number): Observable<IClient> {
-    return this.http.get<IClient>(`${this.apiUrl}/${id}`);
+    return this.http.get<IClient>(`${this.apiUrl}/${id}`,{headers:this.getHeaders()});
   }
 
   addClient(client: IClient): Observable<IClient> {
@@ -25,10 +32,10 @@ export class ClientService {
   }
 
   updateClient(id: number, client: IClient): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, client);
+    return this.http.put<void>(`${this.apiUrl}/${id}`, client ,{headers:this.getHeaders()});
   }
 
   deleteClient(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`,{headers:this.getHeaders()});
   }
 }
